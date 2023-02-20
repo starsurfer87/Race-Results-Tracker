@@ -33,9 +33,10 @@ another repeating basis (e.g. Canadian Track & Field Championships, Harry Jerome
 
 ## User Stories
 - As a user, I want to be able to add a race to an event, recording statistics including date, result time, and placement
-- As a user, I want to be able to delete or edit a race
+- As a user, I want to be able to delete a race
+- As a user, I want to be able to set a goal time for an event
+- As a user, I want to be able to determine what my lap splits needs to be to achieve my goal pace
+- As a user, I want to be able to view my current and all past personal bests for a specific event
 - As a user, I want to be able to specify a race as being part of a competition
 - As a user, I want to be able to remove a race from a particular competition
-- As a user, I want to be able to set a goal time for an event
 - As a user, I want to be able to view all past performances at a particular competition
-- As a user, I want to be able to view current and all past personal bests for a specific event
