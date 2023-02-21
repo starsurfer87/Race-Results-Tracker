@@ -29,20 +29,26 @@ public class Event {
         return null; // stub
     }
 
-    // EFFECTS: returns a list of races in which the athlete achieved a personal best time for this event
-    public List<Race> getPBs() {
+    // REQUIRES: races is not an empty list
+    // EFFECTS: returns the athlete's current personal best time for this event
+    public Duration getPB() {
         return null; // stub
     }
 
-    // REQUIRES: date is more recent than the date of the most recent race in races, time is a positive Duration,
-    //           placement >= 1
+    // EFFECTS: returns a list of races in which the athlete achieved a new personal best time for this event
+    public List<Race> getAllPBs() {
+        return null; // stub
+    }
+
+    // REQUIRES: date is more recent than the date of the most recent race in races, time is a positive non-zero
+    //           Duration, placement >= 1
     // MODIFIES: this
     // EFFECTS: adds a race with a date, result time, and placement, maintaining chronological order of race
     public void addRace() {
         // stub
     }
 
-    // REQUIRES: a goal time has been set
+    // REQUIRES: a goal time has been set, distance >= LAP_DIST
     // EFFECTS: returns the lap split time needed for athlete to achieve their PB
     public Duration goalTimeLapSplit() {
         return null; // stub

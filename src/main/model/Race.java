@@ -15,9 +15,9 @@ public class Race {
     private boolean isPB;
     private int placement;
 
-    // REQUIRES: date is a valid LocalDate, time is a valid positive Duration, placement >= 1
-    // EFFECTS: creates a race with a date, result time, and placement
-    public Race() {
+    // REQUIRES: time is a positive non-zero Duration, placement >= 1
+    // EFFECTS: creates a race with a date, result time, and placement, indicating if it is a PB
+    public Race(LocalDate date, Duration time, int placement, boolean isPB) {
         // stub
     }
 
@@ -31,10 +31,6 @@ public class Race {
 
     public boolean isPB() {
         return isPB;
-    }
-
-    public void setPB(boolean pb) {
-        isPB = pb;
     }
 
     public int getPlacement() {
