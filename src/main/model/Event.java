@@ -2,6 +2,7 @@ package model;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -22,24 +23,45 @@ public class Event {
     // REQUIRES: distance > 0
     // EFFECTS: creates an event of a given distance (in meters) and category with no races
     public Event(int distance, EventCategory category) {
-        // stub
+        this.distance = distance;
+        this.laps = (float) distance / LAP_DIST;
+        this.category = category;
+        this.races = new ArrayList<>();
     }
 
     // EFFECTS: returns name of event based on its distance and category
     //          no contribution from category if category is a sprint, middle-distance, or long-distance race
     public String getName() {
-        return null; // stub
+        String distanceString = distance + "m";
+        if (category == EventCategory.SPRINT || category == EventCategory.MID_DIST
+                || category == EventCategory.LONG_DIST) {
+            return distanceString;
+        } else {
+            return distanceString + " " + category.getName();
+        }
     }
+
 
     // REQUIRES: races is not an empty list
     // EFFECTS: returns the athlete's current personal best time for this event
     public Duration getPB() {
-        return null; // stub
+        for (Race race : races) {
+            if (race.isPB()) {
+                return race.getTime();
+            }
+        }
+        return Duration.ofSeconds(0); // TODO: handle with exception
     }
 
     // EFFECTS: returns a list of races in which the athlete achieved a new personal best time for this event
     public List<Race> getAllPBs() {
-        return null; // stub
+        List<Race> pbRaces = new ArrayList<>();
+        for (Race race : races) {
+            if (race.isPB()) {
+                pbRaces.add(race);
+            }
+        }
+        return pbRaces;
     }
 
     // REQUIRES: date is more recent than or equal to the date of the most recent race in races, time is a positive
@@ -50,24 +72,34 @@ public class Event {
     //          races are arranged from most recent to least recent (if date is the same, last race added is considered
     //          more recent)
     public void addRace(LocalDate date, Duration time, int placement) {
-        // stub
+        Race newRace;
+
+        if (races.size() == 0) {
+            newRace = new Race(date, time, placement, true);
+        } else {
+            Duration priorPB = getPB();
+            boolean isPB = time.compareTo(priorPB) < 0;
+            newRace = new Race(date, time, placement, isPB);
+        }
+
+        races.add(0, newRace);
     }
 
     // REQUIRES: a goal time has been set, distance >= LAP_DIST
     // EFFECTS: returns the lap split time needed for athlete to achieve their PB
     public Duration goalTimeLapSplit() {
-        return null; // stub
+        return goalTime.dividedBy(distance).multipliedBy(LAP_DIST);
     }
 
     // REQUIRES: 0 <= i < numRaces()
     // EFFECTS: returns the race at index i of the list of this event's races
     public Race getRace(int i) {
-        return null; // stub
+        return races.get(i);
     }
 
     // EFFECTS: returns the number of races of this event
     public int numRaces() {
-        return 0; // stub
+        return races.size();
     }
 
     public int getDistance() {
