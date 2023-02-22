@@ -18,7 +18,10 @@ public class Race {
     // REQUIRES: time is a positive non-zero Duration, placement >= 1
     // EFFECTS: creates a race with a date, result time, and placement, indicating if it is a PB
     public Race(LocalDate date, Duration time, int placement, boolean isPB) {
-        // stub
+        this.date = date;
+        this.time = time;
+        this.placement = placement;
+        this.isPB = isPB;
     }
 
     public LocalDate getDate() {
