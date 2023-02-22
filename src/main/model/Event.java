@@ -1,6 +1,7 @@
 package model;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.List;
 
 /*
@@ -9,7 +10,7 @@ the athlete has participated in.
 */
 public class Event {
 
-    private static final int LAP_DIST = 400;
+    public static final int LAP_DIST = 400;
 
     private int distance; // in meters;
     private float laps;
@@ -25,6 +26,7 @@ public class Event {
     }
 
     // EFFECTS: returns name of event based on its distance and category
+    //          no contribution from category if category is SPRINT, MID-DIST, or LONG-DIST
     public String getName() {
         return null; // stub
     }
@@ -43,14 +45,21 @@ public class Event {
     // REQUIRES: date is more recent than the date of the most recent race in races, time is a positive non-zero
     //           Duration, placement >= 1
     // MODIFIES: this
-    // EFFECTS: adds a race with a date, result time, and placement, maintaining chronological order of race
-    public void addRace() {
+    // EFFECTS: adds a race with a date, result time, and placement, maintaining chronological order of race (most
+    //          recent first) and determining whether the race is a PB
+    public void addRace(LocalDate date, Duration time, int placement) {
         // stub
     }
 
     // REQUIRES: a goal time has been set, distance >= LAP_DIST
     // EFFECTS: returns the lap split time needed for athlete to achieve their PB
     public Duration goalTimeLapSplit() {
+        return null; // stub
+    }
+
+    // REQUIRES: 0 <= i < numRaces()
+    // EFFECTS: returns the race at index i of races
+    public Race getRace(int i) {
         return null; // stub
     }
 
@@ -64,6 +73,18 @@ public class Event {
     // EFFECTS: returns the number of races of this event
     public int numRaces() {
         return 0; // stub
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public float getLaps() {
+        return laps;
+    }
+
+    public EventCategory getCategory() {
+        return category;
     }
 
     public Duration getGoalTime() {
