@@ -26,7 +26,7 @@ public class Event {
     }
 
     // EFFECTS: returns name of event based on its distance and category
-    //          no contribution from category if category is SPRINT, MID-DIST, or LONG-DIST
+    //          no contribution from category if category is a sprint, middle-distance, or long-distance race
     public String getName() {
         return null; // stub
     }
@@ -42,11 +42,13 @@ public class Event {
         return null; // stub
     }
 
-    // REQUIRES: date is more recent than the date of the most recent race in races, time is a positive non-zero
+    // REQUIRES: date is more recent than or equal to the date of the most recent race in races, time is a positive
+    //           non-zero
     //           Duration, placement >= 1
     // MODIFIES: this
-    // EFFECTS: adds a race with a date, result time, and placement, maintaining chronological order of race (most
-    //          recent first) and determining whether the race is a PB
+    // EFFECTS: adds a race with a date, result time, and placement, determining whether the race is a PB
+    //          races are arranged from most recent to least recent (if date is the same, last race added is considered
+    //          more recent)
     public void addRace(LocalDate date, Duration time, int placement) {
         // stub
     }
@@ -58,16 +60,9 @@ public class Event {
     }
 
     // REQUIRES: 0 <= i < numRaces()
-    // EFFECTS: returns the race at index i of races
+    // EFFECTS: returns the race at index i of the list of this event's races
     public Race getRace(int i) {
         return null; // stub
-    }
-
-    // REQUIRES: 0 <= i < numRaces()
-    // MODIFIES: this
-    // EFFECTS: removes the race at index i of races
-    public void removeRace(int i) {
-        // stub
     }
 
     // EFFECTS: returns the number of races of this event
