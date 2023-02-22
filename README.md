@@ -4,11 +4,11 @@
 
 This application will keep track of an athlete's race results and allow them to view their progress over time with 
 respect to their goals. The key idea is that athletes and their coaches will be able to use the app to analyze the 
-athlete's results over time in two main ways:
+athlete's results and progress in the following ways:
+- get an overview of all their results for a particular **event**
 - determine how they have progressed in a particular **event** by seeing their current personal best with 
 respect to all past personal bests and their goal time
-- determine how they have done at a particular **competition** over time by 
-being able to view and compare all **races** at that **competition** in current and past years
+- get statistics that will help them work towards their goal times
 
 Additionally, easy access to race result statistics is useful when registering for competitions or filling out 
 applications. While this project will focus on track races specifically, it could be 
@@ -24,8 +24,6 @@ Specifically, while Garmin only tracks one's current personal best for a few pre
 to any track event and include both past and current personal bests.
 
 ### Definitions:
-- **competition:** a track meet with a series of **races** for one or more **events**, usually occurring annually or on 
-another repeating basis (e.g. Canadian Track & Field Championships, Harry Jerome Track Classic)
 - **event:** a certain track discipline (e.g. 100m, 1500m, 3000m)
 - **race:** a particular occurrence of participating in an **event** (e.g. a particular 100m that the athlete ran)
 
@@ -33,11 +31,7 @@ another repeating basis (e.g. Canadian Track & Field Championships, Harry Jerome
 
 ## User Stories
 - As a user, I want to be able to add a race to an event, recording statistics including date, result time, and placement
-- As a user, I want to be able to delete a race
 - As a user, I want to be able to set a goal time for an event
 - As a user, I want to be able to determine what my lap splits needs to be to achieve my goal pace
 - As a user, I want to be able to view all my races for a specific event
 - As a user, I want to be able to view my current and all past personal bests for a specific event
-- As a user, I want to be able to specify a race as being part of a competition
-- As a user, I want to be able to remove a race from a particular competition
-- As a user, I want to be able to view all past performances at a particular competition
