@@ -28,7 +28,6 @@ to any track event and include both past and current personal bests.
 - **race:** a particular occurrence of participating in an **event** (e.g. a particular 100m that the athlete ran)
 
 
-
 ## User Stories
 - As a user, I want to be able to add a race to an event, recording statistics including date, result time, and placement
 - As a user, I want to be able to set a goal time for an event
