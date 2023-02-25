@@ -2,9 +2,11 @@ package ui;
 
 
 import model.Event;
+import model.EventCategory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 // Application for tracking race results
@@ -26,6 +28,19 @@ public class ResultsTracker {
         String command = null;
 
         init();
+
+        while (running) {
+            displayEvents();
+            displayMainMenu();
+            command = input.next();
+            command = command.toLowerCase();
+
+            if (command.equals("quit")) {
+                running = false;
+            } else {
+                processMainMenuCommand(command);
+            }
+        }
     }
 
     // MODIFIES: this
@@ -39,12 +54,35 @@ public class ResultsTracker {
 
     // EFFECTS: displays list of all events that have been added, or indicates if none have been added
     private void displayEvents() {
-
+        if (events.size() > 0) {
+            System.out.println("\nEvent List: ");
+            for (Event evt : events) {
+                System.out.println("\t" + evt.getName());
+            }
+        } else {
+            System.out.println("\nNo events added yet");
+        }
     }
 
     // EFFECTS: displays main menu options to user
     private void displayMainMenu() {
+        System.out.println("\nTo add a new event, enter \"new\"");
+        if (events.size() > 0) {
+            System.out.println("To view an existing event, enter \"select\"");
+        }
+        System.out.println("To quit the application, enter \"quit\"");
+    }
 
+    // MODIFIES: this
+    // EFFECTS: processes user selection for main menu
+    private void processMainMenuCommand(String command) {
+        if (command.equals("new")) {
+            viewEvent(addNewEvent());
+        } else if (command.equals("select") && events.size() > 0) {
+            viewEvent(selectEvent());
+        } else {
+            System.out.println("\nNot a valid command \nPlease try again");
+        }
     }
 
 
@@ -52,18 +90,65 @@ public class ResultsTracker {
     // EFFECTS: prompts user to create a new event; if event with distance and category given by user does not yet
     //          exist, then add and return the event, otherwise return the pre-existing equivalent event
     private Event addNewEvent() {
-        return null;
+        System.out.println("\nAdding a new event");
+        System.out.println("Enter the event distance (in meters):");
+        int distance = input.nextInt();
+        displayEventCategories();
+        EventCategory category = selectEventCategory();
+        Event newEvent = new Event(distance, category);
+        events.add(newEvent);
+        return newEvent;
     }
+
+    // EFFECTS: display event category options to user
+    private void displayEventCategories() {
+        System.out.println("Select an event category:");
+        System.out.println("\tsp -> sprint");
+        System.out.println("\tmd -> middle distance");
+        System.out.println("\tld -> long distance");
+        System.out.println("\thd -> hurdles");
+        System.out.println("\tsc -> steeplechase");
+        System.out.println("\trw -> race walk");
+    }
+
+    // EFFECTS: prompts user to select an event category and returns it
+    private EventCategory selectEventCategory() {
+        String selection = input.next();
+        selection = selection.toLowerCase();
+        EventCategory category;
+
+        switch (selection) {
+            case "sp":  category = EventCategory.SPRINT;
+            break;
+            case "md":  category = EventCategory.MID_DIST;
+            break;
+            case "ld":  category = EventCategory.LONG_DIST;
+            break;
+            case "hd":  category = EventCategory.HURDLES;
+            break;
+            case "sc":  category = EventCategory.STEEPLECHASE;
+            break;
+            case "rw":  category = EventCategory.RACE_WALK;
+            break;
+            default:
+                System.out.println("Not a valid selection \nPlease try again");
+                category = selectEventCategory();
+        }
+
+        return category;
+    }
+
 
     // EFFECTS: prompts user to select an event and returns that event
     private Event selectEvent() {
+        System.out.println("Select an event");
         return null; // stub
     }
 
     // MODIFIES: event
     // EFFECTS: displays basic stats for event and manages user interactions with event
     private void viewEvent(Event event) {
-
+        System.out.println("View selected event");
     }
 
     // EFFECTS: displays the name of given event, along with the event's personal best and goal times if they exist
