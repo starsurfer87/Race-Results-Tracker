@@ -42,15 +42,15 @@ public class Event {
     }
 
 
-    // REQUIRES: races is not an empty list
-    // EFFECTS: returns the athlete's current personal best time for this event
+    // EFFECTS: returns the athlete's current personal best time for this event, or null if there are no races for this
+    //          event yet
     public Duration getPB() {
         for (Race race : races) {
             if (race.isPB()) {
                 return race.getTime();
             }
         }
-        return Duration.ofSeconds(0); // TODO: handle with exception
+        return null;
     }
 
     // EFFECTS: returns a list of races in which the athlete achieved a new personal best time for this event

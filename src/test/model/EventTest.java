@@ -55,6 +55,10 @@ public class EventTest {
         assertEquals("1500m", midDist1500.getName());
     }
 
+    @Test void testGetPBNoRaces() {
+        assertNull(hurdles110.getPB());
+    }
+
     @Test
     public void testGetPB() {
         assertEquals(Duration.ofSeconds(280), midDist1500.getPB());

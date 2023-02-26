@@ -25,7 +25,7 @@ public class ResultsTracker {
     // EFFECTS: processes user input
     private void runResultsTracker() {
         boolean running = true;
-        String command = null;
+        String command;
 
         init();
 
@@ -97,7 +97,7 @@ public class ResultsTracker {
 
         for (Event existingEvent : events) {
             if (existingEvent.getDistance() == distance && existingEvent.getCategory() == category) {
-                System.out.println("An event with this distance and category already exists:");
+                System.out.println("\nAn event with this distance and category already exists:");
                 return existingEvent;
             }
         }
@@ -118,7 +118,7 @@ public class ResultsTracker {
         System.out.println("\trw -> race walk");
     }
 
-    // EFFECTS: prompts user to select an event category and returns it
+    // EFFECTS: prompts user to select an event category and returns that category
     private EventCategory selectEventCategory() {
         String selection = input.next();
         selection = selection.toLowerCase().trim();
@@ -148,50 +148,108 @@ public class ResultsTracker {
 
     // EFFECTS: prompts user to select an event and returns that event
     private Event selectEvent() {
-        System.out.println("Select an event");
-        return null; // stub
+        System.out.println("\nEnter the name of the event you would like to select:");
+        String eventName = input.next();
+        eventName = eventName.trim();
+
+        for (Event event : events) {
+            if (eventName.equalsIgnoreCase(event.getName())) {
+                return event;
+            }
+        }
+
+        System.out.println("Not a valid selection \nPlease try again");
+        return selectEvent();
     }
 
     // MODIFIES: event
     // EFFECTS: displays basic stats for event and manages user interactions with event
     private void viewEvent(Event event) {
-        System.out.println("View selected event");
+        boolean viewingEvent = true;
+        String command;
+
+
+
+        while (viewingEvent) {
+            displayEventStats(event);
+            displayEventMenu();
+            command = input.next();
+            command = command.toLowerCase().trim();
+
+            if (command.equals("exit")) {
+                viewingEvent = false;
+            } else {
+                processEventMenuCommand(event, command);
+            }
+        }
     }
 
     // EFFECTS: displays the name of given event, along with the event's personal best and goal times if they exist
     private void displayEventStats(Event event) {
-
+        System.out.println("\n" + event.getName());
+        if (event.getPB() != null) {
+            System.out.println("Current Personal Best: " + event.getPB());
+        }
+        if (event.getGoalTime() != null) {
+            System.out.println("Goal Time: " + event.getGoalTime());
+        }
     }
 
     // EFFECTS: displays menu of options specific to an event to user
     private void displayEventMenu() {
+        System.out.println("\nSelect one of the following:");
+        System.out.println("\tsgt  -> set a goal time");
+        System.out.println("\tgls  -> get goal time lap split");
+        System.out.println("\tar   -> add a new race");
+        System.out.println("\tvr   -> view all races");
+        System.out.println("\tvpb  -> view personal bests");
+        System.out.println("\texit -> back to main menu");
+    }
 
+    // MODIFIES: event
+    // EFFECTS: processes user selection for event menu
+    private void processEventMenuCommand(Event event, String command) {
+
+        switch (command) {
+            case "sgt": setGoalTime(event);
+            break;
+            case "gls": displayGoalTimeLapSplit(event);
+            break;
+            case "ar": addNewRace(event);
+            break;
+            case "vr": displayRaces(event);
+            break;
+            case "vpb": displayPBs(event);
+            break;
+            default:
+                System.out.println("Not a valid selection \nPlease try again");
+        }
     }
 
     // MODIFIES: event
     // EFFECTS: sets event's goal time according to user input
     private void setGoalTime(Event event) {
-
+        System.out.println("set goal time");
     }
 
     // EFFECTS: displays the lap split time needed to achieve goal time for event
     private void displayGoalTimeLapSplit(Event event) {
-
+        System.out.println("display splits");
     }
 
     // MODIFIES: event
     // EFFECTS: adds a new race to event according to user input
     private void addNewRace(Event event) {
-
+        System.out.println("add race");
     }
 
     // EFFECTS: display all races for given event
     private void displayRaces(Event event) {
-
+        System.out.println("view races");
     }
 
     // EFFECTS: display all races where a current or past personal best time was achieved
     private void displayPBs(Event event) {
-
+        System.out.println("view pbs");
     }
 }
