@@ -118,6 +118,9 @@ public class Event {
         return goalTime;
     }
 
+    // REQUIRES: goalTime is a positive non-zero Duration
+    // MODIFIES: this
+    // EFFECTS: sets the goal time for the event
     public void setGoalTime(Duration goalTime) {
         this.goalTime = goalTime;
     }

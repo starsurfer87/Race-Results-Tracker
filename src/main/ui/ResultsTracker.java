@@ -3,10 +3,13 @@ package ui;
 
 import model.Event;
 import model.EventCategory;
+import model.Race;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 // Application for tracking race results
@@ -229,27 +232,131 @@ public class ResultsTracker {
     // MODIFIES: event
     // EFFECTS: sets event's goal time according to user input
     private void setGoalTime(Event event) {
-        System.out.println("set goal time");
+        System.out.println("\nEnter your " + event.getName()
+                + " goal time using ISO-8601 seconds based representation:");
+        String goalTimeString = input.next();
+
+        try {
+            Duration goalTime = Duration.parse(goalTimeString);
+            if (isPositiveTime("Goal time", goalTime)) {
+                event.setGoalTime(goalTime);
+                System.out.println("Your goal time has been set");
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Not a valid time");
+        }
     }
 
     // EFFECTS: displays the lap split time needed to achieve goal time for event
     private void displayGoalTimeLapSplit(Event event) {
-        System.out.println("display splits");
+        if (event.getDistance() < Event.LAP_DIST) {
+            System.out.println("Event is less than a lap long - cannot calculate lap splits");
+        } else if (event.getGoalTime() == null) {
+            System.out.println("No goal time set - cannot calculate lap splits");
+        } else {
+            System.out.println("\nLap split time needed to achieve goal time: " + event.goalTimeLapSplit());
+        }
     }
 
     // MODIFIES: event
     // EFFECTS: adds a new race to event according to user input
     private void addNewRace(Event event) {
-        System.out.println("add race");
+        System.out.println("\nAdding a new " + event.getName() + " race");
+
+        LocalDate raceDate = inputRaceDate(event);
+
+        Duration resultTime = inputRaceTime();
+
+        System.out.println("Enter your placement:");
+        int placement = input.nextInt(); // TODO: catch exception
+
+        event.addRace(raceDate, resultTime, placement);
+    }
+
+    // EFFECTS: prompts user to input a date for a race and returns it
+    private LocalDate inputRaceDate(Event raceEvent) {
+        System.out.println("Enter the date of the race in the form yyyy-mm-dd:");
+        String dateString = input.next();
+        LocalDate date;
+
+        try {
+            date = LocalDate.parse(dateString);
+            if (raceEvent.numRaces() > 0) {
+                LocalDate prevRaceDate = raceEvent.getRace(0).getDate();
+                if (date.isBefore(prevRaceDate)) {
+                    System.out.println("Date cannot be before the date of your previous " + raceEvent.getName()
+                            + "race (" + prevRaceDate + ")");
+                    date = inputRaceDate(raceEvent);
+                }
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Not a valid date");
+            date = inputRaceDate(raceEvent);
+        }
+
+        return date;
+    }
+
+    // EFFECTS: prompts user to input a result time for a race and returns it
+    private Duration inputRaceTime() {
+        System.out.println("Enter your result time using ISO-8601 seconds based representation:");
+        String timeString = input.next();
+        Duration time;
+
+        try {
+            time = Duration.parse(timeString);
+            if (!isPositiveTime("Time", time)) {
+                time = inputRaceTime();
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Not a valid time");
+            time = inputRaceTime();
+        }
+
+        return time;
     }
 
     // EFFECTS: display all races for given event
     private void displayRaces(Event event) {
-        System.out.println("view races");
+        System.out.println("\n" + event.getName() + " Races");
+        for (int i = 0; i < event.numRaces(); i++) {
+            Race race = event.getRace(i);
+            displayRaceStats(race);
+            if (race.isPB()) {
+                System.out.print("\tPB\n");
+            } else {
+                System.out.println("\n");
+            }
+        }
     }
 
     // EFFECTS: display all races where a current or past personal best time was achieved
     private void displayPBs(Event event) {
-        System.out.println("view pbs");
+        System.out.println("\n" + event.getName() + " Personal Bests");
+        for (Race pbRace : event.getAllPBs()) {
+            displayRaceStats(pbRace);
+            System.out.println("\n");
+        }
+    }
+
+    // TODO: could abstract the above 2 functions further
+
+    // EFFECTS: displays race statistics to user
+    private void displayRaceStats(Race race) {
+        System.out.print(race.getDate() + "\t" + race.getTime() + "\t" + race.getPlacement());
+    }
+
+    // EFFECTS: returns true if time is a positive and non-zero Duration, otherwise returns false and indicates the
+    //          issue to the user
+    private boolean isPositiveTime(String name, Duration time) {
+        if (time.isNegative()) {
+            System.out.println(name + " cannot be negative");
+            return false;
+        } else if (time.isZero()) {
+            System.out.println(name + " cannot be zero");
+            return false;
+        } else {
+            return true;
+        }
     }
 }
