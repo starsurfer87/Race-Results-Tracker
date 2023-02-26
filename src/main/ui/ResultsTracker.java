@@ -33,7 +33,7 @@ public class ResultsTracker {
             displayEvents();
             displayMainMenu();
             command = input.next();
-            command = command.toLowerCase();
+            command = command.toLowerCase().trim();
 
             if (command.equals("quit")) {
                 running = false;
@@ -85,16 +85,23 @@ public class ResultsTracker {
         }
     }
 
-
     // MODIFIES: this
     // EFFECTS: prompts user to create a new event; if event with distance and category given by user does not yet
     //          exist, then add and return the event, otherwise return the pre-existing equivalent event
     private Event addNewEvent() {
         System.out.println("\nAdding a new event");
         System.out.println("Enter the event distance (in meters):");
-        int distance = input.nextInt();
+        int distance = input.nextInt(); // TODO: catch InputMismatchException
         displayEventCategories();
         EventCategory category = selectEventCategory();
+
+        for (Event existingEvent : events) {
+            if (existingEvent.getDistance() == distance && existingEvent.getCategory() == category) {
+                System.out.println("An event with this distance and category already exists:");
+                return existingEvent;
+            }
+        }
+
         Event newEvent = new Event(distance, category);
         events.add(newEvent);
         return newEvent;
@@ -114,7 +121,7 @@ public class ResultsTracker {
     // EFFECTS: prompts user to select an event category and returns it
     private EventCategory selectEventCategory() {
         String selection = input.next();
-        selection = selection.toLowerCase();
+        selection = selection.toLowerCase().trim();
         EventCategory category;
 
         switch (selection) {
