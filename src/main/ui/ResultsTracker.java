@@ -340,6 +340,7 @@ public class ResultsTracker {
     }
 
     // TODO: could abstract the above 2 functions further
+    // TODO: fix display of race lists
 
     // EFFECTS: displays race statistics to user
     private void displayRaceStats(Race race) {

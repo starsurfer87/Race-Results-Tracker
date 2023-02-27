@@ -51,8 +51,12 @@ public class EventTest {
 
     @Test
     public void testGetName() {
+        Event longDist10000 = new Event(10000, EventCategory.LONG_DIST);
+
         assertEquals("110m Hurdles", hurdles110.getName());
         assertEquals("1500m", midDist1500.getName());
+        assertEquals("1m", veryShortSprint.getName());
+        assertEquals("10000m", longDist10000.getName());
     }
 
     @Test void testGetPBNoRaces() {
@@ -170,7 +174,8 @@ public class EventTest {
         assertEquals(6, midDist1500.numRaces());
     }
 
-    public void checkCorrectRace(Race race, LocalDate expectedDate, int expectedSeconds, int expectedPlacement, boolean expectedPB) {
+    public void checkCorrectRace(Race race, LocalDate expectedDate, int expectedSeconds, int expectedPlacement,
+                                 boolean expectedPB) {
         assertEquals(expectedDate, race.getDate());
         assertEquals(Duration.ofSeconds(expectedSeconds), race.getTime());
         assertEquals(expectedPlacement, race.getPlacement());
