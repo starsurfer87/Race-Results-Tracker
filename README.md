@@ -31,6 +31,6 @@ to any track event and include both past and current personal bests.
 ## User Stories
 - As a user, I want to be able to add a race to an event, recording statistics including date, result time, and placement
 - As a user, I want to be able to set a goal time for an event
-- As a user, I want to be able to determine what my lap splits needs to be to achieve my goal pace
+- As a user, I want to be able to determine what my lap splits needs to be to achieve my goal time
 - As a user, I want to be able to view all my races for a specific event
 - As a user, I want to be able to view my current and all past personal bests for a specific event
