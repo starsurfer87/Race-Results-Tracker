@@ -312,35 +312,27 @@ public class ResultsTracker {
         return time;
     }
 
+    // EFFECTS: display race stats for a specified list of races
+    private void displayListOfRaces(Event event, List<Race> raceList, String listType, boolean identifyPBs) {
+        System.out.println("\n" + event.getName() + " " + listType);
+        System.out.println("Date\t\tTime\tPlace");
+        for (Race race : raceList) {
+            System.out.print(race.getDate() + "\t" + race.getTime() + "\t" + race.getPlacement());
+            if (race.isPB() && identifyPBs) {
+                System.out.print("\t\tPB");
+            }
+            System.out.print("\n");
+        }
+    }
+
     // EFFECTS: display all races for given event
     private void displayRaces(Event event) {
-        System.out.println("\n" + event.getName() + " Races");
-        for (int i = 0; i < event.numRaces(); i++) {
-            Race race = event.getRace(i);
-            displayRaceStats(race);
-            if (race.isPB()) {
-                System.out.print("\tPB\n");
-            } else {
-                System.out.println("\n");
-            }
-        }
+        displayListOfRaces(event, event.getAllRaces(), "Races", true);
     }
 
     // EFFECTS: display all races where a current or past personal best time was achieved
     private void displayPBs(Event event) {
-        System.out.println("\n" + event.getName() + " Personal Bests");
-        for (Race pbRace : event.getAllPBs()) {
-            displayRaceStats(pbRace);
-            System.out.println("\n");
-        }
-    }
-
-    // TODO: could abstract the above 2 functions further
-    // TODO: fix display of race lists
-
-    // EFFECTS: displays race statistics to user
-    private void displayRaceStats(Race race) {
-        System.out.print(race.getDate() + "\t" + race.getTime() + "\t" + race.getPlacement());
+        displayListOfRaces(event, event.getAllPBs(), "Personal Bests", false);
     }
 
     // EFFECTS: prompts user to input a positive non-zero integer and returns it

@@ -40,6 +40,4 @@ public class Race {
         return placement;
     }
 
-
-
 }

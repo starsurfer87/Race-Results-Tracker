@@ -169,6 +169,23 @@ public class EventTest {
     }
 
     @Test
+    public void testGetAllRacesNoRaces() {
+        List<Race> raceList = hurdles110.getAllRaces();
+        assertEquals(0, raceList.size());
+    }
+
+    @Test
+    public void testGetAllRacesMultipleRaces() {
+        hurdles110.addRace(MAY10_2021, Duration.ofSeconds(18), 6);
+        hurdles110.addRace(MAY11_2021, Duration.ofSeconds(16), 3);
+
+        List<Race> raceList = hurdles110.getAllRaces();
+        assertEquals(2, raceList.size());
+        assertEquals(hurdles110.getRace(0), raceList.get(0));
+        assertEquals(hurdles110.getRace(1), raceList.get(1));
+    }
+
+    @Test
     public void testNumRaces() {
         assertEquals(0, hurdles110.numRaces());
         assertEquals(6, midDist1500.numRaces());
@@ -181,4 +198,5 @@ public class EventTest {
         assertEquals(expectedPlacement, race.getPlacement());
         assertEquals(expectedPB, race.isPB());
     }
+
 }

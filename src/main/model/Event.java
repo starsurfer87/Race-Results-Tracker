@@ -41,7 +41,6 @@ public class Event {
         }
     }
 
-
     // EFFECTS: returns the athlete's current personal best time for this event, or null if there are no races for this
     //          event yet
     public Duration getPB() {
@@ -95,6 +94,11 @@ public class Event {
     // EFFECTS: returns the race at index i of the list of this event's races
     public Race getRace(int i) {
         return races.get(i);
+    }
+
+    // EFFECTS: returns list of all races of this event
+    public List<Race> getAllRaces() {
+        return races;
     }
 
     // EFFECTS: returns the number of races of this event
