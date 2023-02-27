@@ -93,8 +93,7 @@ public class ResultsTracker {
     //          exist, then add and return the event, otherwise return the pre-existing equivalent event
     private Event addNewEvent() {
         System.out.println("\nAdding a new event");
-        System.out.println("Enter the event distance (in meters):");
-        int distance = input.nextInt(); // TODO: catch InputMismatchException
+        int distance = inputPosInteger("Enter the event distance (in meters):");
         displayEventCategories();
         EventCategory category = selectEventCategory();
 
@@ -264,11 +263,8 @@ public class ResultsTracker {
         System.out.println("\nAdding a new " + event.getName() + " race");
 
         LocalDate raceDate = inputRaceDate(event);
-
         Duration resultTime = inputRaceTime();
-
-        System.out.println("Enter your placement:");
-        int placement = input.nextInt(); // TODO: catch exception
+        int placement = inputPosInteger("Enter your placement:");
 
         event.addRace(raceDate, resultTime, placement);
     }
@@ -345,6 +341,18 @@ public class ResultsTracker {
     // EFFECTS: displays race statistics to user
     private void displayRaceStats(Race race) {
         System.out.print(race.getDate() + "\t" + race.getTime() + "\t" + race.getPlacement());
+    }
+
+    // EFFECTS: prompts user to input a positive non-zero integer and returns it
+    private int inputPosInteger(String userPrompt) {
+        System.out.println(userPrompt);
+        int inputInt = input.nextInt();
+        if (inputInt > 0) {
+            return inputInt;
+        } else {
+            System.out.println("You must input an positive non-zero integer value \nPlease try again");
+            return inputPosInteger(userPrompt);
+        }
     }
 
     // EFFECTS: returns true if time is a positive and non-zero Duration, otherwise returns false and indicates the
