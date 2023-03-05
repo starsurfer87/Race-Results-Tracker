@@ -34,3 +34,5 @@ to any track event and include both past and current personal bests.
 - As a user, I want to be able to determine what my lap splits needs to be to achieve my goal time
 - As a user, I want to be able to view all my races for a specific event
 - As a user, I want to be able to view my current and all past personal bests for a specific event
+- As a user, when I quit the application, I want to have the option to save the data of the added events and races to a file
+- As a user, when I start the application, I want to have the option to load event and race data from a file
