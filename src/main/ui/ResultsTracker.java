@@ -1,6 +1,7 @@
 package ui;
 
 
+import model.Athlete;
 import model.Event;
 import model.EventCategory;
 import model.Race;
@@ -8,7 +9,6 @@ import model.Race;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class ResultsTracker {
     // code based on modified version of the TellerApp class of the Teller application
 
-    private List<Event> events;
+    private Athlete athlete;
     private Scanner input;
 
     // EFFECTS: runs the results tracker
@@ -52,15 +52,17 @@ public class ResultsTracker {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
 
-        events = new ArrayList<>();
+        System.out.println("What is your name?");
+        String athleteName = input.next();
+        athlete = new Athlete(athleteName);
     }
 
     // EFFECTS: displays list of all events that have been added, or indicates if none have been added
     private void displayEvents() {
-        if (events.size() > 0) {
+        if (athlete.numEvents() > 0) {
             System.out.println("\nEvent List: ");
-            for (Event evt : events) {
-                System.out.println("\t" + evt.getName());
+            for (String eventName : athlete.getEventNames()) {
+                System.out.println("\t" + eventName);
             }
         } else {
             System.out.println("\nNo events added yet");
@@ -70,7 +72,7 @@ public class ResultsTracker {
     // EFFECTS: displays main menu options to user
     private void displayMainMenu() {
         System.out.println("\nTo add a new event, enter \"new\"");
-        if (events.size() > 0) {
+        if (athlete.numEvents() > 0) {
             System.out.println("To view an existing event, enter \"select\"");
         }
         System.out.println("To quit the application, enter \"quit\"");
@@ -81,7 +83,7 @@ public class ResultsTracker {
     private void processMainMenuCommand(String command) {
         if (command.equals("new")) {
             viewEvent(addNewEvent());
-        } else if (command.equals("select") && events.size() > 0) {
+        } else if (command.equals("select") && athlete.numEvents() > 0) {
             viewEvent(selectEvent());
         } else {
             System.out.println("\nNot a valid command \nPlease try again");
@@ -89,24 +91,21 @@ public class ResultsTracker {
     }
 
     // MODIFIES: this
-    // EFFECTS: prompts user to create a new event; if event with distance and category given by user does not yet
+    // EFFECTS: prompts user to create a new event; if event same name does not yet
     //          exist, then add and return the event, otherwise return the pre-existing equivalent event
     private Event addNewEvent() {
         System.out.println("\nAdding a new event");
         int distance = inputPosInteger("Enter the event distance (in meters):");
         displayEventCategories();
         EventCategory category = selectEventCategory();
+        Event newEvent = new Event(distance, category);
+        boolean newEventAdded = athlete.addEvent(newEvent);
 
-        for (Event existingEvent : events) {
-            if (existingEvent.getDistance() == distance && existingEvent.getCategory() == category) {
-                System.out.println("\nAn event with this distance and category already exists:");
-                return existingEvent;
-            }
+        if (!newEventAdded) {
+            System.out.println("\nAn event with this distance and category already exists:");
         }
 
-        Event newEvent = new Event(distance, category);
-        events.add(newEvent);
-        return newEvent;
+        return athlete.getEvent(newEvent.getName());
     }
 
     // EFFECTS: display event category options to user
@@ -127,17 +126,17 @@ public class ResultsTracker {
         EventCategory category;
 
         switch (selection) {
-            case "sp":  category = EventCategory.SPRINT;
+            case "sp": category = EventCategory.SPRINT;
             break;
-            case "md":  category = EventCategory.MID_DIST;
+            case "md": category = EventCategory.MID_DIST;
             break;
-            case "ld":  category = EventCategory.LONG_DIST;
+            case "ld": category = EventCategory.LONG_DIST;
             break;
-            case "hd":  category = EventCategory.HURDLES;
+            case "hd": category = EventCategory.HURDLES;
             break;
-            case "sc":  category = EventCategory.STEEPLECHASE;
+            case "sc": category = EventCategory.STEEPLECHASE;
             break;
-            case "rw":  category = EventCategory.RACE_WALK;
+            case "rw": category = EventCategory.RACE_WALK;
             break;
             default:
                 System.out.println("Not a valid selection \nPlease try again");
@@ -154,14 +153,14 @@ public class ResultsTracker {
         String eventName = input.next();
         eventName = eventName.trim();
 
-        for (Event event : events) {
-            if (eventName.equalsIgnoreCase(event.getName())) {
-                return event;
-            }
-        }
+        Event selectedEvent = athlete.getEvent(eventName);
 
-        System.out.println("Not a valid selection \nPlease try again");
-        return selectEvent();
+        if (selectedEvent != null) {
+            return selectedEvent;
+        } else {
+            System.out.println("Not a valid selection \nPlease try again");
+            return selectEvent();
+        }
     }
 
     // MODIFIES: event
@@ -169,7 +168,6 @@ public class ResultsTracker {
     private void viewEvent(Event event) {
         boolean viewingEvent = true;
         String command;
-
 
 
         while (viewingEvent) {
@@ -213,16 +211,21 @@ public class ResultsTracker {
     private void processEventMenuCommand(Event event, String command) {
 
         switch (command) {
-            case "sgt": setGoalTime(event);
-            break;
-            case "gls": displayGoalTimeLapSplit(event);
-            break;
-            case "ar": addNewRace(event);
-            break;
-            case "vr": displayRaces(event);
-            break;
-            case "vpb": displayPBs(event);
-            break;
+            case "sgt":
+                setGoalTime(event);
+                break;
+            case "gls":
+                displayGoalTimeLapSplit(event);
+                break;
+            case "ar":
+                addNewRace(event);
+                break;
+            case "vr":
+                displayRaces(event);
+                break;
+            case "vpb":
+                displayPBs(event);
+                break;
             default:
                 System.out.println("Not a valid selection \nPlease try again");
         }
