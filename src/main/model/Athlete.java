@@ -1,7 +1,9 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -9,7 +11,7 @@ import java.util.Set;
 /*
 Represents an athlete with track events that they compete in
  */
-public class Athlete {
+public class Athlete implements Writable {
 
     private String name;
     private Map<String, Event> events;
@@ -50,5 +52,25 @@ public class Athlete {
     // EFFECTS: returns the event with the given name or null if no event with that name exists
     public Event getEvent(String name) {
         return events.get(name);
+    }
+
+    // EFFECTS: returns this as JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("events", eventsToJson());
+        return json;
+    }
+
+    // returns this athlete's events as a JSON Array
+    private JSONArray eventsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Event evt : events.values()) {
+            jsonArray.put(evt.toJson());
+        }
+
+        return jsonArray;
     }
 }

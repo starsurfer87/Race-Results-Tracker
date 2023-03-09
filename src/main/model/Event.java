@@ -1,5 +1,9 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,7 +13,7 @@ import java.util.List;
 Represents a track event of a certain distance and category, with a goal time and a list of races of the event that
 the athlete has participated in.
 */
-public class Event {
+public class Event implements Writable {
 
     public static final int LAP_DIST = 400;
 
@@ -129,4 +133,26 @@ public class Event {
         this.goalTime = goalTime;
     }
 
+    // EFFECTS: returns this as JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("distance", distance);
+        json.put("laps", laps);
+        json.put("category", category);
+        json.put("goal time", goalTime);
+        json.put("races", racesToJson());
+        return json;
+    }
+
+    // returns races for this event as a JSON Array
+    private JSONArray racesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Race r : races) {
+            jsonArray.put(r.toJson());
+        }
+
+        return jsonArray;
+    }
 }

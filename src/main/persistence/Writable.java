@@ -1,11 +1,11 @@
 package persistence;
 
-import netscape.javascript.JSObject;
+import org.json.JSONObject;
 
 public interface Writable {
     // code from Writable interface in JsonSerializationDemo project
     // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
     // EFFECTS: returns this as a JSON object
-    JSObject toJson();
+    JSONObject toJson();
 }

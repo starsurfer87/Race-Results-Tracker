@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.time.Duration;
 import java.time.LocalDate;
 
@@ -8,7 +11,7 @@ Represents a race, specifically a particular occurrence of participating in a pa
 statistics including the date it was run, the results, and whether it was a new personal best at the time (all from
 the individual athlete's perspective).
 */
-public class Race {
+public class Race implements Writable {
 
     private LocalDate date;
     private Duration time;
@@ -40,4 +43,14 @@ public class Race {
         return placement;
     }
 
+    // EFFECTS: returns this as JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("date", date);
+        json.put("time", time);
+        json.put("isPB", isPB);
+        json.put("placement", placement);
+        return json;
+    }
 }
