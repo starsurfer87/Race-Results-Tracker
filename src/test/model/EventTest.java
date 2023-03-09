@@ -191,7 +191,7 @@ public class EventTest {
         assertEquals(6, midDist1500.numRaces());
     }
 
-    public void checkCorrectRace(Race race, LocalDate expectedDate, int expectedSeconds, int expectedPlacement,
+    private void checkCorrectRace(Race race, LocalDate expectedDate, int expectedSeconds, int expectedPlacement,
                                  boolean expectedPB) {
         assertEquals(expectedDate, race.getDate());
         assertEquals(Duration.ofSeconds(expectedSeconds), race.getTime());
