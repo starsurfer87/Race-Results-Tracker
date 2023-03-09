@@ -49,7 +49,6 @@ public class Race implements Writable {
         JSONObject json = new JSONObject();
         json.put("date", date);
         json.put("time", time);
-        json.put("isPB", isPB);
         json.put("placement", placement);
         return json;
     }

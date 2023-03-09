@@ -138,7 +138,6 @@ public class Event implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("distance", distance);
-        json.put("laps", laps);
         json.put("category", category);
         json.put("goal time", goalTime);
         json.put("races", racesToJson());
