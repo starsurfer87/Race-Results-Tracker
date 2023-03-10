@@ -69,8 +69,10 @@ public class JsonReader {
         int distance = jsonObject.getInt("distance");
         EventCategory category = EventCategory.valueOf(jsonObject.getString("category"));
         Event event = new Event(distance, category);
-        Duration goalTime = Duration.parse(jsonObject.getString("goal time"));
-        event.setGoalTime(goalTime);
+        if (jsonObject.has("goal time")) {
+            Duration goalTime = Duration.parse(jsonObject.getString("goal time"));
+            event.setGoalTime(goalTime);
+        }
         parseRaces(event, jsonObject);
         a.addEvent(event);
     }

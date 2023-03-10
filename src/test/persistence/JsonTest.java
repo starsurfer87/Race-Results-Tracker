@@ -10,17 +10,18 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonTest {
-    protected void checkRace(Race race, LocalDate date, Duration time, boolean isPB, int placement) {
-        assertEquals(date, race.getDate());
-        assertEquals(time, race.getTime());
-        assertEquals(isPB, race.isPB());
-        assertEquals(placement, race.getPlacement());
+    protected void checkRace(Race r, LocalDate date, Duration time, boolean isPB, int placement) {
+        assertEquals(date, r.getDate());
+        assertEquals(time, r.getTime());
+        assertEquals(isPB, r.isPB());
+        assertEquals(placement, r.getPlacement());
     }
 
-    protected void checkEvent(Event event, int distance, float laps, EventCategory category, Duration goalTime) {
-        assertEquals(distance, event.getDistance());
-        assertEquals(laps, event.getLaps());
-        assertEquals(category, event.getCategory());
-        assertEquals(goalTime, event.getGoalTime());
+    protected void checkEvent(Event e, int dist, float laps, EventCategory category, Duration goalTime, int numRaces) {
+        assertEquals(dist, e.getDistance());
+        assertEquals(laps, e.getLaps());
+        assertEquals(category, e.getCategory());
+        assertEquals(goalTime, e.getGoalTime());
+        assertEquals(numRaces, e.numRaces());
     }
 }
