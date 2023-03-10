@@ -63,7 +63,7 @@ public class Athlete implements Writable {
         return json;
     }
 
-    // returns this athlete's events as a JSON Array
+    // EFFECTS: returns this athlete's events as a JSON Array
     private JSONArray eventsToJson() {
         JSONArray jsonArray = new JSONArray();
 

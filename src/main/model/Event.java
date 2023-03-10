@@ -7,6 +7,7 @@ import persistence.Writable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /*
@@ -144,11 +145,12 @@ public class Event implements Writable {
         return json;
     }
 
-    // returns races for this event as a JSON Array
+    // EFFECTS: returns races for this event as a JSON Array, with the races ordered from oldest to newest
     private JSONArray racesToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (Race r : races) {
+        for (int i = numRaces() - 1; i >= 0; i--) {
+            Race r = races.get(i);
             jsonArray.put(r.toJson());
         }
 

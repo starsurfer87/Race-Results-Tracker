@@ -1,0 +1,27 @@
+{
+    "name": "Skye",
+    "events": [
+        {
+            "distance": 3000,
+            "races": [],
+            "category": "STEEPLECHASE"
+        },
+        {
+            "distance": 800,
+            "goal time": "PT2M20S",
+            "races": [
+                {
+                    "date": "2022-06-24",
+                    "time": "PT2M23.4S",
+                    "placement": 9
+                },
+                {
+                    "date": "2022-06-24",
+                    "time": "PT2M25.11S",
+                    "placement": 18
+                }
+            ],
+            "category": "MID_DIST"
+        }
+    ]
+}
