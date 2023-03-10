@@ -27,7 +27,7 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     public void testReaderAthleteNoEventsOrRaces() {
-        JsonReader reader = new JsonReader("data/TestReaderAthleteNoEventsOrRaces.json");
+        JsonReader reader = new JsonReader("./data/TestReaderAthleteNoEventsOrRaces.json");
         try {
             Athlete a = reader.read();
             assertEquals("Andre De Grasse", a.getName());
@@ -39,7 +39,7 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     public void testReaderAthleteWithEventsAndRaces() {
-        JsonReader reader = new JsonReader("data/TestReaderAthleteWithEventsAndRaces.json");
+        JsonReader reader = new JsonReader("./data/TestReaderAthleteWithEventsAndRaces.json");
         try {
             Athlete a = reader.read();
             assertEquals("Skye", a.getName());
@@ -55,6 +55,7 @@ public class JsonReaderTest extends JsonTest {
 
             checkEvent(a.getEvent("400m"), 400, (float) 1, EventCategory.SPRINT,
                     null, 0);
+
         } catch (IOException e) {
             fail("Couldn't reader from file");
         }
