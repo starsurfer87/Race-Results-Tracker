@@ -1,0 +1,9 @@
+{
+    "name": "Natalie",
+    "events": [{
+        "distance": 800,
+        "goal time": "PT2M20S",
+        "races": [],
+        "category": "MID_DIST"
+    }]
+}

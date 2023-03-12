@@ -5,7 +5,11 @@ import model.Athlete;
 import model.Event;
 import model.EventCategory;
 import model.Race;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -19,6 +23,9 @@ public class ResultsTracker {
 
     private Athlete athlete;
     private Scanner input;
+    private String fileDest;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the results tracker
     public ResultsTracker() {
@@ -40,7 +47,7 @@ public class ResultsTracker {
             command = command.toLowerCase().trim();
 
             if (command.equals("quit")) {
-                running = false;
+                running = !quit();
             } else {
                 processMainMenuCommand(command);
             }
@@ -48,20 +55,99 @@ public class ResultsTracker {
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes scanner and empty list of events
+    // EFFECTS: saves athlete's data to file
+    private void save() throws FileNotFoundException {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(athlete);
+            System.out.println("\nYour work has been saved");
+        } finally {
+            jsonWriter.close();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: gives user option to save before quitting and returns true if program should quit, false otherwise
+    private boolean quit() {
+        displayQuitOptions();
+        String command = input.next();
+        command = command.toLowerCase().trim();
+
+        switch (command) {
+            case "s":
+                try {
+                    save();
+                    return true;
+                } catch (FileNotFoundException e) {
+                    System.out.println("\nThere was an problem saving your data");
+                    System.out.println("Returning to main menu");
+                    return false;
+                }
+            case "q":
+                return true;
+            case "c":
+                System.out.println("\nReturning to main menu");
+                return false;
+            default:
+                System.out.println("\nNot a valid option \nReturning to main menu");
+                return false;
+        }
+    }
+
+    // EFFECTS: displays quit options to user
+    private void displayQuitOptions() {
+        System.out.println("\nQuit options:");
+        System.out.println("\ts -> save and quit");
+        System.out.println("\tq -> quit");
+        System.out.println("\tc -> cancel");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes scanner, json reader and writer, and athlete
     private void init() {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        fileDest = "./data/AthleteData.json";
+        jsonReader = new JsonReader(fileDest);
+        jsonWriter = new JsonWriter(fileDest);
+        selectLoadOrNew();
+    }
 
-        System.out.println("What is your name?");
+    // MODIFIES: this
+    // EFFECTS: loads data from file or initializes new athlete from scratch according to user input
+    private void selectLoadOrNew() {
+        System.out.println("Would you like to load your previous data?");
+        System.out.println("Enter \"yes\" or \"no\"");
+        String command = input.next();
+        command = command.toLowerCase().trim();
+
+        if (command.equals("yes")) {
+            try {
+                athlete = jsonReader.read();
+            } catch (IOException e) {
+                System.out.println("\nThere was an issue accessing your file");
+                System.out.println("Likely you have not saved any data yet");
+                athlete = createNewAthlete();
+            }
+        } else if (command.equals("no")) {
+            athlete = createNewAthlete();
+        } else {
+            System.out.println("\nNot a valid command \nPlease try again");
+            selectLoadOrNew();
+        }
+    }
+
+    // EFFECTS: creates and returns a new athlete with name specified by user input
+    private Athlete createNewAthlete() {
+        System.out.println("\nWhat is your name?");
         String athleteName = input.next();
-        athlete = new Athlete(athleteName);
+        return new Athlete(athleteName);
     }
 
     // EFFECTS: displays list of all events that have been added, or indicates if none have been added
     private void displayEvents() {
         if (athlete.numEvents() > 0) {
-            System.out.println("\nEvent List: ");
+            System.out.println("\n" + athlete.getName() + "'s Event List: ");
             for (String eventName : athlete.getEventNames()) {
                 System.out.println("\t" + eventName);
             }
@@ -76,6 +162,7 @@ public class ResultsTracker {
         if (athlete.numEvents() > 0) {
             System.out.println("To view an existing event, enter \"select\"");
         }
+        System.out.println("To save your data, enter \"save\"");
         System.out.println("To quit the application, enter \"quit\"");
     }
 
@@ -86,6 +173,12 @@ public class ResultsTracker {
             viewEvent(addNewEvent());
         } else if (command.equals("select") && athlete.numEvents() > 0) {
             viewEvent(selectEvent());
+        } else if (command.equals("save")) {
+            try {
+                save();
+            } catch (FileNotFoundException e) {
+                System.out.println("\nThere was an problem saving your data");
+            }
         } else {
             System.out.println("\nNot a valid command \nPlease try again");
         }
@@ -128,17 +221,17 @@ public class ResultsTracker {
 
         switch (selection) {
             case "sp": category = EventCategory.SPRINT;
-            break;
+                break;
             case "md": category = EventCategory.MID_DIST;
-            break;
+                break;
             case "ld": category = EventCategory.LONG_DIST;
-            break;
+                break;
             case "hd": category = EventCategory.HURDLES;
-            break;
+                break;
             case "sc": category = EventCategory.STEEPLECHASE;
-            break;
+                break;
             case "rw": category = EventCategory.RACE_WALK;
-            break;
+                break;
             default:
                 System.out.println("Not a valid selection \nPlease try again");
                 category = selectEventCategory();
