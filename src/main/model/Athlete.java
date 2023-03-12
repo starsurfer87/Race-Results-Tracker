@@ -28,7 +28,7 @@ public class Athlete implements Writable {
 
     // MODIFIES: this
     // EFFECTS: if event with same name does not yet exist, then adds event using its name as its key and returns true,
-    // otherwise does nothing and returns false
+    //          otherwise does nothing and returns false
     public boolean addEvent(Event event) {
         String eventName = event.getName();
         if (getEvent(eventName) == null) {

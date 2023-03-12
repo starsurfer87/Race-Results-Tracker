@@ -12,6 +12,7 @@ public enum EventCategory {
 
     private final String name;
 
+    // EFFECTS: constructs an event category with the given name
     EventCategory(String name) {
         this.name = name;
     }
