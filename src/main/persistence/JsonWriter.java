@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+/*
+Represents a writer that writes JSON representation of athlete to file
+ */
 public class JsonWriter {
     // code based on JsonWriter interface in JsonSerializationDemo project
     // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git

@@ -1,9 +1,13 @@
 {
-    "name": "Natalie",
+    "name": "Skye",
     "events": [{
-        "distance": 800,
-        "goal time": "PT2M20S",
-        "races": [],
+        "distance": 1500,
+        "goal time": "PT5M",
+        "races": [{
+            "date": "2023-03-11",
+            "time": "PT5M",
+            "placement": 3
+        }],
         "category": "MID_DIST"
     }]
 }
