@@ -38,8 +38,20 @@ to any track event and include both past and current personal bests.
 option when I quit the application
 - As a user, when I start the application, I want to have the option to load event and race data from a file
 
+## Instructions for Grader
+
+- You can generate the first required action related to adding Xs to a Y by...
+- You can generate the second required action related to adding Xs to a Y by...
+- You can locate my visual component by...
+- You can save the state of my application by...
+- You can reload the state of my application by...
+
 ## Citations
 - code adapted from [TellerApp project](https://github.students.cs.ubc.ca/CPSC210/TellerApp.git) used in ResultsTracker 
 class in the ui package
 - code taken or adapted from [JsonSerializationDemo project](https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git)
 used throughout project, but particularly in JsonReader, JsonWriter, and Writable classes in the persistence package
+
+## Image Sources
+- [Flaticon](https://www.flaticon.com/)
+- [PublicDomainPictures.net](https://www.publicdomainpictures.net/en/view-image.php?image=261806&picture=track-and-field-turn)
