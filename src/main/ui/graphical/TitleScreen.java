@@ -24,8 +24,7 @@ public class TitleScreen extends JPanel implements ActionListener {
     //          part of, and a JsonReader to read data from file
     public TitleScreen(ResultsTrackerGUI resultsTracker) {
         this.resultsTracker = resultsTracker;
-        String fileDest = "./data/AthleteData.json";
-        jsonReader = new JsonReader(fileDest);
+        jsonReader = new JsonReader(resultsTracker.getFileDest());
 
         setBackground(Color.WHITE);
         addVisuals();
@@ -53,7 +52,7 @@ public class TitleScreen extends JPanel implements ActionListener {
         buttonLoad.addActionListener(this);
     }
 
-    // MODIFIES: resultsTracker
+    // MODIFIES: this
     // EFFECTS: sets athlete to either a new athlete or an athlete loaded from file
     @Override
     public void actionPerformed(ActionEvent evt) {

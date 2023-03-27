@@ -12,18 +12,24 @@ public class ResultsTrackerGUI extends JFrame {
 
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 800;
-    public static final int CTR_X = WIDTH / 2;
 
     private Athlete athlete;
-    private TitleScreen ts;
+    private TitleScreen titleScreen;
+    private MenuBar menu;
+    private EventsPanel eventsPanel;
+    private String fileDest;
 
-    // EFFECTS: sets up window for Results Tracker application starting on title screen
+    // EFFECTS: sets up window for Results Tracker application starting on title screen //TODO: update documentation
     public ResultsTrackerGUI() {
         super("Race Results Tracker");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
-        ts = new TitleScreen(this);
-        add(ts);
+        athlete = new Athlete("Skye");
+        fileDest = "./data/AthleteData.json";
+        //titleScreen = new TitleScreen(this);
+        //add(titleScreen);
+
+        showMainScreen();
         centreOnScreen();
         setVisible(true);
     }
@@ -35,7 +41,27 @@ public class ResultsTrackerGUI extends JFrame {
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }
 
+    private void showMainScreen() {
+        // TODO: fix layout issues
+        menu = new MenuBar(this);
+        eventsPanel = new EventsPanel(this);
+        menu.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+
+        //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        add(menu);
+        //add(eventsPanel);
+    }
+
     public void setAthlete(Athlete athlete) {
         this.athlete = athlete;
+    }
+
+    public Athlete getAthlete() {
+        return athlete;
+    }
+
+    public String getFileDest() {
+        return fileDest;
     }
 }
