@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 public class EventsPanel extends JPanel implements ListSelectionListener {
     private static final String ADD_EVENT = "New Event";
 
-    private ResultsTrackerGUI resultsTracker;
     private Athlete athlete;
     private JList<String> eventList;
     private DefaultListModel<String> eventListModel;
@@ -21,7 +20,6 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
 
 
     public EventsPanel(ResultsTrackerGUI resultsTracker) {
-        this.resultsTracker = resultsTracker;
         this.athlete = resultsTracker.getAthlete();
         eventsDetails = new EventsDetails();
 
@@ -42,7 +40,6 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
         add(eventsDetails);
     }
 
-
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
@@ -50,19 +47,12 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
 
             if (index == -1) {
                 eventsDetails.unselectEvent();
+                eventsDetails.setVisible(false);
             } else {
                 String selectedEventName = eventListModel.get(index);
                 eventsDetails.setSelectedEvent(athlete.getEvent(selectedEventName));
                 eventsDetails.setVisible(true);
             }
-        }
-    }
-
-    private class AddEventListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
         }
     }
 }
