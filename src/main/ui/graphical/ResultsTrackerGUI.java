@@ -1,9 +1,11 @@
 package ui.graphical;
 
 import model.Athlete;
+import persistence.JsonReader;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /*
 Represents main window of the Results Tracker application
@@ -24,8 +26,14 @@ public class ResultsTrackerGUI extends JFrame {
         super("Race Results Tracker");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
-        athlete = new Athlete("Skye");
         fileDest = "./data/AthleteData.json";
+        JsonReader reader = new JsonReader(fileDest);
+        try {
+            athlete = reader.read();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         //titleScreen = new TitleScreen(this);
         //add(titleScreen);
 
@@ -49,8 +57,8 @@ public class ResultsTrackerGUI extends JFrame {
 
 
         //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        add(menu);
-        //add(eventsPanel);
+        //add(menu);
+        add(eventsPanel);
     }
 
     public void setAthlete(Athlete athlete) {

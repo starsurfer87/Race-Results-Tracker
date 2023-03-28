@@ -34,8 +34,7 @@ to any track event and include both past and current personal bests.
 - As a user, I want to be able to determine what my lap splits needs to be to achieve my goal time
 - As a user, I want to be able to view all my races for a specific event
 - As a user, I want to be able to view my current and all past personal bests for a specific event
-- As a user, I want to have the option to save my added events and races to a file and be reminded of this
-option when I quit the application
+- As a user, I want to have the option to save my added events and races to a file
 - As a user, when I start the application, I want to have the option to load event and race data from a file
 
 ## Instructions for Grader
@@ -53,5 +52,4 @@ class in the ui package
 used throughout project, but particularly in JsonReader, JsonWriter, and Writable classes in the persistence package
 
 ## Image Sources
-- [Flaticon](https://www.flaticon.com/)
-- [PublicDomainPictures.net](https://www.publicdomainpictures.net/en/view-image.php?image=261806&picture=track-and-field-turn)
+- [creazilla](https://creazilla.com/nodes/38602-track-and-field-clipart)
