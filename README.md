@@ -29,6 +29,7 @@ to any track event and include both past and current personal bests.
 
 
 ## User Stories
+- As a user, I want to be able to add a new event for myself
 - As a user, I want to be able to add a race to an event, recording statistics including date, result time, and placement
 - As a user, I want to be able to set a goal time for an event
 - As a user, I want to be able to determine what my lap splits needs to be to achieve my goal time
@@ -39,11 +40,18 @@ to any track event and include both past and current personal bests.
 
 ## Instructions for Grader
 
-- You can generate the first required action related to adding Xs to a Y by...
-- You can generate the second required action related to adding Xs to a Y by...
-- You can locate my visual component by...
-- You can save the state of my application by...
-- You can reload the state of my application by...
+- You can view all events added to the athlete on the main page (the main page is displayed once you have 
+created a new athlete or load an athlete from file on the title screen)
+- You can view all races added to an event by selecting one of the events in the list on the main page (all races for 
+that event will pop up in a table)
+- You can generate the first required action related to adding Xs to a Y by filling out the text input fields 
+"Distance" and "Category" and pressing the "Add Event" button
+- You can generate the second required action related to adding Xs to a Y by filling out the text input fields "Date", 
+"Time", and "Placement" and pressing the "Add Race" button on the form that pops up when an event is selected
+- You can locate my visual component (the track logo) on the title screen displayed upon starting the application 
+- You can save the state of my application by pressing the "Save" button on the bottom of the main page 
+- You can reload the state of my application by pressing the "Load Athlete From File" button on the title screen 
+displayed upon starting the application
 
 ## Citations
 - code adapted from [TellerApp project](https://github.students.cs.ubc.ca/CPSC210/TellerApp.git) used in ResultsTracker 
