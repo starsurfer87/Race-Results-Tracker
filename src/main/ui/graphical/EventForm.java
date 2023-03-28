@@ -1,7 +1,7 @@
 package ui.graphical;
 
-import exceptions.InvalidInputException;
 import model.EventCategory;
+import ui.exceptions.InvalidInputException;
 
 import javax.swing.*;
 import java.util.*;
