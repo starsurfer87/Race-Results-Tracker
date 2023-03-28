@@ -2,6 +2,7 @@ package ui.graphical;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +38,7 @@ public abstract class Form extends JPanel implements ActionListener {
         add(submitButton);
     }
 
-    public Map<String, String> collectInputs() {
+    private Map<String, String> collectInputs() {
         Map<String, String> userInputs = new HashMap<>();
 
         for (String fieldName : fields.keySet()) {
@@ -49,4 +50,14 @@ public abstract class Form extends JPanel implements ActionListener {
 
         return userInputs;
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals(actionName)) {
+            Map<String, String> userInputs = collectInputs();
+            handleUserInputs(userInputs);
+        }
+    }
+
+    protected abstract void handleUserInputs(Map<String, String> userInputs);
 }

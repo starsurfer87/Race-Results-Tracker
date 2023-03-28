@@ -10,7 +10,6 @@ import java.util.Set;
 
 public class RaceForm extends Form {
 
-    private static final String ADD_RACE = "Add Race";
     private static final String DATE = "Date";
     private static final String TIME = "Time";
     private static final String PLACE = "Placement";
@@ -18,7 +17,7 @@ public class RaceForm extends Form {
     EventDetails eventDetails;
 
     public RaceForm(EventDetails eventDetails) {
-        super(ADD_RACE, fieldSet());
+        super("Add Race", fieldSet());
         this.eventDetails = eventDetails;
     }
 
@@ -30,15 +29,7 @@ public class RaceForm extends Form {
         return fields;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals(ADD_RACE)) {
-            Map<String, String> userInputs = collectInputs();
-            addRace(userInputs);
-        }
-    }
-
-    private void addRace(Map<String, String> userInputs) {
+    protected void handleUserInputs(Map<String, String> userInputs) {
         try {
             LocalDate date = LocalDate.parse(userInputs.get(DATE));
             Duration time = Duration.parse(userInputs.get(TIME));

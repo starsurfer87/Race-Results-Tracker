@@ -1,6 +1,8 @@
 package ui.graphical;
 
 import model.Athlete;
+import model.Event;
+import model.EventCategory;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -20,20 +22,25 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
         eventDetails = new EventDetails();
 
         eventListModel = new DefaultListModel<>();
-        for (String eventName : athlete.getEventNames()) {
-            eventListModel.addElement(eventName);
-        }
-
+        populateEventsListModel();
         eventList = new JList<>(eventListModel);
         eventList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         eventList.addListSelectionListener(this);
         JScrollPane eventsScrollPane = new JScrollPane(eventList);
         add(eventsScrollPane);
 
-        JButton newEventButton = new JButton(ADD_EVENT);
-        add(newEventButton);
+        EventForm eventForm = new EventForm(this);
+        add(eventForm);
+
         eventDetails.setVisible(false);
         add(eventDetails);
+    }
+
+    private void populateEventsListModel() {
+        eventListModel.clear();
+        for (String eventName : athlete.getEventNames()) {
+            eventListModel.addElement(eventName);
+        }
     }
 
     @Override
@@ -50,5 +57,10 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
                 eventDetails.setVisible(true);
             }
         }
+    }
+
+    public void addEventToAthlete(int distance, EventCategory category) {
+        athlete.addEvent(new Event(distance, category));
+        populateEventsListModel();
     }
 }
