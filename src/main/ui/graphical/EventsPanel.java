@@ -1,14 +1,10 @@
 package ui.graphical;
 
 import model.Athlete;
-import model.Event;
-import model.Race;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class EventsPanel extends JPanel implements ListSelectionListener {
     private static final String ADD_EVENT = "New Event";
@@ -16,12 +12,12 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
     private Athlete athlete;
     private JList<String> eventList;
     private DefaultListModel<String> eventListModel;
-    private EventsDetails eventsDetails;
+    private EventDetails eventDetails;
 
 
     public EventsPanel(ResultsTrackerGUI resultsTracker) {
         this.athlete = resultsTracker.getAthlete();
-        eventsDetails = new EventsDetails();
+        eventDetails = new EventDetails();
 
         eventListModel = new DefaultListModel<>();
         for (String eventName : athlete.getEventNames()) {
@@ -36,8 +32,8 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
 
         JButton newEventButton = new JButton(ADD_EVENT);
         add(newEventButton);
-        eventsDetails.setVisible(false);
-        add(eventsDetails);
+        eventDetails.setVisible(false);
+        add(eventDetails);
     }
 
     @Override
@@ -46,12 +42,12 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
             int index = eventList.getSelectedIndex();
 
             if (index == -1) {
-                eventsDetails.unselectEvent();
-                eventsDetails.setVisible(false);
+                eventDetails.unselectEvent();
+                eventDetails.setVisible(false);
             } else {
                 String selectedEventName = eventListModel.get(index);
-                eventsDetails.setSelectedEvent(athlete.getEvent(selectedEventName));
-                eventsDetails.setVisible(true);
+                eventDetails.setSelectedEvent(athlete.getEvent(selectedEventName));
+                eventDetails.setVisible(true);
             }
         }
     }

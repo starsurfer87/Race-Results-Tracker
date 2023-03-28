@@ -14,12 +14,8 @@ public class ResultsTrackerGUI extends JFrame {
 
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 600;
-    public static final int BAR_HEIGHT = 30;
 
     private Athlete athlete;
-    private TitleScreen titleScreen;
-    private MenuBar menu;
-    private EventsPanel eventsPanel;
     private String fileDest;
 
     // EFFECTS: sets up window for Results Tracker application starting on title screen
@@ -29,7 +25,7 @@ public class ResultsTrackerGUI extends JFrame {
         setSize(WIDTH, HEIGHT);
         fileDest = "./data/AthleteData.json";
         JsonReader reader = new JsonReader(fileDest);
-        titleScreen = new TitleScreen(this);
+        TitleScreen titleScreen = new TitleScreen(this);
         add(titleScreen);
         centreOnScreen();
         setVisible(true);
@@ -43,13 +39,13 @@ public class ResultsTrackerGUI extends JFrame {
     }
 
     public void showMainScreen() {
-        menu = new MenuBar(this);
-        eventsPanel = new EventsPanel(this);
+        MenuBar menu = new MenuBar(this);
+        EventsPanel eventsPanel = new EventsPanel(this);
 
 
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-        add(menu);
-        add(eventsPanel);
+        setLayout(new BorderLayout());
+        add(menu, BorderLayout.PAGE_END);
+        add(eventsPanel, BorderLayout.CENTER);
     }
 
     public void setAthlete(Athlete athlete) {

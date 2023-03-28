@@ -5,22 +5,30 @@ import model.Race;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.time.Duration;
+import java.time.LocalDate;
 
-public class EventsDetails extends JPanel {
+public class EventDetails extends JPanel {
 
     private Event selectedEvent;
     DefaultTableModel raceTableModel;
     JTable raceTable;
 
-    public EventsDetails() {
+    public EventDetails() {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         selectedEvent = null;
         makeRacesTable();
+        add(new RaceForm(this));
     }
 
     public void setSelectedEvent(Event selectedEvent) {
         this.selectedEvent = selectedEvent;
         populateRacesTable();
+    }
+
+    public void unselectEvent() {
+        selectedEvent = null;
+        raceTableModel.setRowCount(0);
     }
 
     private void makeRacesTable() {
@@ -40,8 +48,8 @@ public class EventsDetails extends JPanel {
         }
     }
 
-    public void unselectEvent() {
-        selectedEvent = null;
-        raceTableModel.setRowCount(0);
+    public void addRaceToEvent(LocalDate date, Duration time, int place) {
+        selectedEvent.addRace(date, time, place);
+        populateRacesTable();
     }
 }
