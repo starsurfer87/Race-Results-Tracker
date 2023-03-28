@@ -15,33 +15,24 @@ public class EventsDetails extends JPanel {
     public EventsDetails() {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         selectedEvent = null;
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-
-        super.paintComponent(g);
-
-        // TODO: get this to display / update
-        // TODO: making the swing lists work with util collections
-        if (selectedEvent != null) {
-            JButton b1 = new JButton("HELLOOOO");
-            add(b1);
-            raceListModel = new DefaultListModel<>();
-            for (Race race : selectedEvent.getAllRaces()) {
-                raceListModel.addElement(race);
-            }
-            raceList = new JList<>();
-            JScrollPane racesScrollPane = new JScrollPane(raceList);
-            add(racesScrollPane);
-        }
+        JButton b1 = new JButton("HELLOOOO");
+        add(b1);
+        raceListModel = new DefaultListModel<>();
+        raceList = new JList<>(raceListModel);
+        JScrollPane racesScrollPane = new JScrollPane(raceList);
+        add(racesScrollPane);
     }
 
     public void setSelectedEvent(Event selectedEvent) {
+        raceListModel.clear();
         this.selectedEvent = selectedEvent;
+        raceListModel.addAll(selectedEvent.getAllRaces());
     }
+
+
 
     public void unselectEvent() {
         selectedEvent = null;
+        raceListModel.clear();
     }
 }

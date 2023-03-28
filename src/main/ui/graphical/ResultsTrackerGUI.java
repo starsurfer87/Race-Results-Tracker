@@ -13,7 +13,8 @@ Represents main window of the Results Tracker application
 public class ResultsTrackerGUI extends JFrame {
 
     public static final int WIDTH = 1000;
-    public static final int HEIGHT = 800;
+    public static final int HEIGHT = 600;
+    public static final int BAR_HEIGHT = 30;
 
     private Athlete athlete;
     private TitleScreen titleScreen;
@@ -21,23 +22,15 @@ public class ResultsTrackerGUI extends JFrame {
     private EventsPanel eventsPanel;
     private String fileDest;
 
-    // EFFECTS: sets up window for Results Tracker application starting on title screen //TODO: update documentation
+    // EFFECTS: sets up window for Results Tracker application starting on title screen
     public ResultsTrackerGUI() {
         super("Race Results Tracker");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         fileDest = "./data/AthleteData.json";
         JsonReader reader = new JsonReader(fileDest);
-        try {
-            athlete = reader.read();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        //titleScreen = new TitleScreen(this);
-        //add(titleScreen);
-
-        showMainScreen();
+        titleScreen = new TitleScreen(this);
+        add(titleScreen);
         centreOnScreen();
         setVisible(true);
     }
@@ -49,15 +42,13 @@ public class ResultsTrackerGUI extends JFrame {
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }
 
-    private void showMainScreen() {
-        // TODO: fix layout issues
+    public void showMainScreen() {
         menu = new MenuBar(this);
         eventsPanel = new EventsPanel(this);
-        menu.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
 
-        //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        //add(menu);
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+        add(menu);
         add(eventsPanel);
     }
 

@@ -62,7 +62,8 @@ public class TitleScreen extends JPanel implements ActionListener {
             } else if (evt.getActionCommand().equals(LOAD_ATHLETE)) {
                 resultsTracker.setAthlete(jsonReader.read());
             }
-            //TODO: transition to events page
+            this.setVisible(false);
+            resultsTracker.showMainScreen();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error Reading File",
                     JOptionPane.ERROR_MESSAGE);

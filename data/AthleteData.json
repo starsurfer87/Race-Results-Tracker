@@ -1,27 +1,27 @@
 {
-  "events": [
-    {
-      "distance": 1500,
-      "goal time": "PT4M50S",
-      "category": "MID_DIST",
-      "races": [
+    "name": "Skye",
+    "events": [
         {
-          "date": "2022-03-26",
-          "time": "PT4M58.18S",
-          "placement": 14
+            "distance": 400,
+            "races": [],
+            "category": "SPRINT"
         },
         {
-          "date": "2022-06-29",
-          "time": "PT4M54.12S",
-          "placement": 9
+            "distance": 1500,
+            "goal time": "PT4M50S",
+            "races": [
+                {
+                    "date": "2022-03-26",
+                    "time": "PT4M58.18S",
+                    "placement": 14
+                },
+                {
+                    "date": "2022-06-29",
+                    "time": "PT4M54.12S",
+                    "placement": 9
+                }
+            ],
+            "category": "MID_DIST"
         }
-      ]
-    },
-    {
-      "distance": 400,
-      "category": "SPRINT",
-      "races": []
-    }
-  ],
-  "name": "Skye"
+    ]
 }

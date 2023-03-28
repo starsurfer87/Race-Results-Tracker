@@ -38,13 +38,14 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
 
         JButton newEventButton = new JButton(ADD_EVENT);
         add(newEventButton);
+        eventsDetails.setVisible(false);
         add(eventsDetails);
     }
 
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if (e.getValueIsAdjusting() == false) {
+        if (!e.getValueIsAdjusting()) {
             int index = eventList.getSelectedIndex();
 
             if (index == -1) {
@@ -52,6 +53,7 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
             } else {
                 String selectedEventName = eventListModel.get(index);
                 eventsDetails.setSelectedEvent(athlete.getEvent(selectedEventName));
+                eventsDetails.setVisible(true);
             }
         }
     }
