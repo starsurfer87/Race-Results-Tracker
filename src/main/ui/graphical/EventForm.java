@@ -4,13 +4,11 @@ import exceptions.InvalidInputException;
 import model.EventCategory;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
+/*
+Form for creating and adding a new event
+ */
 public class EventForm extends Form {
 
     private static final String DISTANCE = "Distance";
@@ -18,18 +16,24 @@ public class EventForm extends Form {
 
     EventsPanel eventsPanel;
 
+    // EFFECTS: creates a form for adding a new event
     public EventForm(EventsPanel eventsPanel) {
-        super("Add Event", fieldSet());
+        super("Add Event", getInputValues());
         this.eventsPanel = eventsPanel;
     }
 
-    private static Set<String> fieldSet() {
-        Set<String> fields = new HashSet<>();
-        fields.add(DISTANCE);
-        fields.add(CATEGORY);
-        return fields;
+    // EFFECTS: returns list of names of values needed in order to create an event
+    private static List<String> getInputValues() {
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add(DISTANCE);
+        inputValues.add(CATEGORY);
+        return inputValues;
     }
 
+    // REQUIRES: key values of userInputs match values returned by getInputValues()
+    // MODIFIES: this
+    // EFFECTS: if user inputs can be parsed to needed values, adds new event using these values, otherwise displays
+    //          error message pop-up
     protected void handleUserInputs(Map<String, String> userInputs) {
         try {
             int distance = Integer.parseInt(userInputs.get(DISTANCE));
@@ -41,6 +45,7 @@ public class EventForm extends Form {
         }
     }
 
+    // EFFECTS: parses EventCategory from categoryString
     private EventCategory parseCategory(String categoryString) throws InvalidInputException {
         EventCategory category;
 

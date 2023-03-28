@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
 /*
-Represents menu bar of Results Tracker application
+Menu bar of Results Tracker application
  */
 public class MenuBar extends JPanel implements ActionListener {
     private ResultsTrackerGUI resultsTracker;

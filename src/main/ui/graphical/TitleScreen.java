@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /*
-Represents the title screen of the Results Tracker application
+Title screen of the Results Tracker application
  */
 public class TitleScreen extends JPanel implements ActionListener {
 

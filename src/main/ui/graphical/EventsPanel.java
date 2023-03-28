@@ -8,6 +8,9 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+/*
+Panel with information and interactions related to events
+ */
 public class EventsPanel extends JPanel implements ListSelectionListener {
     private static final String ADD_EVENT = "New Event";
 
@@ -16,10 +19,10 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
     private DefaultListModel<String> eventListModel;
     private EventDetails eventDetails;
 
-
+    // EFFECTS: creates a panel with a list of the athlete's events, a form for adding new events, and an event details
+    //          panel which is initially hidden
     public EventsPanel(ResultsTrackerGUI resultsTracker) {
         this.athlete = resultsTracker.getAthlete();
-        eventDetails = new EventDetails();
 
         eventListModel = new DefaultListModel<>();
         populateEventsListModel();
@@ -32,10 +35,13 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
         EventForm eventForm = new EventForm(this);
         add(eventForm);
 
+        eventDetails = new EventDetails();
         eventDetails.setVisible(false);
         add(eventDetails);
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates contents of the list of events
     private void populateEventsListModel() {
         eventListModel.clear();
         for (String eventName : athlete.getEventNames()) {
@@ -43,6 +49,9 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays or hides event details depending on whether an event is selected, updating displayed
+    //          information according to the selected event
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
@@ -59,6 +68,9 @@ public class EventsPanel extends JPanel implements ListSelectionListener {
         }
     }
 
+    // REQUIRES: distance > 0
+    // MODIFIES: this
+    // EFFECTS: adds an event to the athlete
     public void addEventToAthlete(int distance, EventCategory category) {
         athlete.addEvent(new Event(distance, category));
         populateEventsListModel();

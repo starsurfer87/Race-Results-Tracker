@@ -8,7 +8,7 @@ import java.awt.*;
 import java.io.IOException;
 
 /*
-Represents main window of the Results Tracker application
+Main window of the Results Tracker application
  */
 public class ResultsTrackerGUI extends JFrame {
 
@@ -24,7 +24,6 @@ public class ResultsTrackerGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         fileDest = "./data/AthleteData.json";
-        JsonReader reader = new JsonReader(fileDest);
         TitleScreen titleScreen = new TitleScreen(this);
         add(titleScreen);
         centreOnScreen();
@@ -38,10 +37,11 @@ public class ResultsTrackerGUI extends JFrame {
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up main screen of the Results Tracker application
     public void showMainScreen() {
         MenuBar menu = new MenuBar(this);
         EventsPanel eventsPanel = new EventsPanel(this);
-
 
         setLayout(new BorderLayout());
         add(menu, BorderLayout.PAGE_END);

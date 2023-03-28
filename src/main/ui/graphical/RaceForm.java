@@ -1,13 +1,13 @@
 package ui.graphical;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
+/*
+Form for creating and adding a new race to an event
+ */
 public class RaceForm extends Form {
 
     private static final String DATE = "Date";
@@ -16,19 +16,25 @@ public class RaceForm extends Form {
 
     EventDetails eventDetails;
 
+    // EFFECTS: creates a form for adding a new race
     public RaceForm(EventDetails eventDetails) {
-        super("Add Race", fieldSet());
+        super("Add Race", getInputValues());
         this.eventDetails = eventDetails;
     }
 
-    private static Set<String> fieldSet() {
-        Set<String> fields = new HashSet<>();
-        fields.add(DATE);
-        fields.add(TIME);
-        fields.add(PLACE);
-        return fields;
+    // EFFECTS: returns list of names of values needed in order to create a race
+    private static List<String> getInputValues() {
+        List<String> inputValues = new ArrayList<>();
+        inputValues.add(DATE);
+        inputValues.add(TIME);
+        inputValues.add(PLACE);
+        return inputValues;
     }
 
+    // REQUIRES: key values of userInputs match values returned by getInputValues()
+    // MODIFIES: this
+    // EFFECTS: if user inputs can be parsed to needed values, adds new race using these values, otherwise displays
+    //          error message pop-up
     protected void handleUserInputs(Map<String, String> userInputs) {
         try {
             LocalDate date = LocalDate.parse(userInputs.get(DATE));
