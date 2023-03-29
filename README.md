@@ -45,7 +45,7 @@ created a new athlete or load an athlete from file on the title screen)
 - You can view all races added to an event by selecting one of the events in the list on the main page (all races for 
 that event will pop up in a table)
 - You can generate the first required action related to adding Xs to a Y by filling out the text input fields 
-"Distance" and "Category" and pressing the "Add Event" button
+"Distance" and "Category" and pressing the "Add Event" button on the main page
 - You can generate the second required action related to adding Xs to a Y by filling out the text input fields "Date", 
 "Time", and "Placement" and pressing the "Add Race" button on the form that pops up when an event is selected
 - You can generate a third action related to adding Xs to a Y by clicking the "Filter for PBs" checkbox on that appears 
@@ -60,6 +60,10 @@ displayed upon starting the application
 class in the ui package
 - code taken or adapted from [JsonSerializationDemo project](https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git)
 used throughout project, but particularly in JsonReader, JsonWriter, and Writable classes in the persistence package
+- code based on Java Swing [Component Examples](https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html), 
+[Layout Examples](https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/index.html#SpringDemo2), and
+[Event Listener Examples](https://docs.oracle.com/javase/tutorial/uiswing/examples/events/index.html#MultiListener) 
+(particularly the CheckBoxDemoProject, ListDemoProject, SimpleTableDemoProject, and MultiListenerProject) used throughout gui package 
 
 ## Image Sources
 - [creazilla](https://creazilla.com/nodes/38602-track-and-field-clipart)
