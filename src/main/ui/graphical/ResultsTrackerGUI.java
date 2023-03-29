@@ -13,7 +13,7 @@ Main window of the Results Tracker application
 public class ResultsTrackerGUI extends JFrame {
 
     public static final int WIDTH = 1000;
-    public static final int HEIGHT = 600;
+    public static final int HEIGHT = 800;
 
     private Athlete athlete;
     private String fileDest;

@@ -48,6 +48,8 @@ that event will pop up in a table)
 "Distance" and "Category" and pressing the "Add Event" button
 - You can generate the second required action related to adding Xs to a Y by filling out the text input fields "Date", 
 "Time", and "Placement" and pressing the "Add Race" button on the form that pops up when an event is selected
+- You can generate a third action related to adding Xs to a Y by clicking the "Filter for PBs" checkbox on that appears 
+with the table of races
 - You can locate my visual component (the track logo) on the title screen displayed upon starting the application 
 - You can save the state of my application by pressing the "Save" button on the bottom of the main page 
 - You can reload the state of my application by pressing the "Load Athlete From File" button on the title screen 
