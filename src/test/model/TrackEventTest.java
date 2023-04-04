@@ -5,26 +5,25 @@ import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EventTest {
+public class TrackEventTest {
 
     private static final LocalDate MAY10_2021 = LocalDate.of(2021, 5, 10);
     private static final LocalDate MAY11_2021 = LocalDate.of(2021, 5, 11);
     private static final LocalDate APRIL18_2022 = LocalDate.of(2022, 4, 18);
 
-    private Event veryShortSprint;
-    private Event hurdles110;
-    private Event midDist1500;
+    private TrackEvent veryShortSprint;
+    private TrackEvent hurdles110;
+    private TrackEvent midDist1500;
 
     @BeforeEach
     public void setup() {
-        veryShortSprint = new Event(1, EventCategory.SPRINT);
-        hurdles110 = new Event(110, EventCategory.HURDLES);
-        midDist1500 = new Event(1500, EventCategory.MID_DIST);
+        veryShortSprint = new TrackEvent(1, TrackEventCategory.SPRINT);
+        hurdles110 = new TrackEvent(110, TrackEventCategory.HURDLES);
+        midDist1500 = new TrackEvent(1500, TrackEventCategory.MID_DIST);
 
         midDist1500.addRace(MAY10_2021, Duration.ofSeconds(300), 5); //PB
         midDist1500.addRace(MAY10_2021, Duration.ofSeconds(305), 8);
@@ -37,21 +36,21 @@ public class EventTest {
     @Test
     public void testConstructor() {
         assertEquals(1, veryShortSprint.getDistance());
-        assertEquals((float) 1 / Event.LAP_DIST, veryShortSprint.getLaps());
-        assertEquals(EventCategory.SPRINT, veryShortSprint.getCategory());
+        assertEquals((float) 1 / TrackEvent.LAP_DIST, veryShortSprint.getLaps());
+        assertEquals(TrackEventCategory.SPRINT, veryShortSprint.getCategory());
         assertNull(veryShortSprint.getGoalTime());
         assertEquals(0, veryShortSprint.numRaces());
 
         assertEquals(110, hurdles110.getDistance());
-        assertEquals((float) 110 / Event.LAP_DIST, hurdles110.getLaps());
-        assertEquals(EventCategory.HURDLES, hurdles110.getCategory());
+        assertEquals((float) 110 / TrackEvent.LAP_DIST, hurdles110.getLaps());
+        assertEquals(TrackEventCategory.HURDLES, hurdles110.getCategory());
         assertNull(hurdles110.getGoalTime());
         assertEquals(0, hurdles110.numRaces());
     }
 
     @Test
     public void testGetName() {
-        Event longDist10000 = new Event(10000, EventCategory.LONG_DIST);
+        TrackEvent longDist10000 = new TrackEvent(10000, TrackEventCategory.LONG_DIST);
 
         assertEquals("110m Hurdles", hurdles110.getName());
         assertEquals("1500m", midDist1500.getName());
@@ -143,14 +142,14 @@ public class EventTest {
 
     @Test
     public void testGoalTimeLapSplitOneLapEvent() {
-        Event oneLap = new Event(Event.LAP_DIST, EventCategory.SPRINT);
+        TrackEvent oneLap = new TrackEvent(TrackEvent.LAP_DIST, TrackEventCategory.SPRINT);
         oneLap.setGoalTime(Duration.ofMinutes(1));
         assertEquals(Duration.ofMinutes(1), oneLap.goalTimeLapSplit());
     }
 
     @Test
     public void testGoalTimeLapSplitFullLapsEvent() {
-        Event midDist800 = new Event(800, EventCategory.MID_DIST);
+        TrackEvent midDist800 = new TrackEvent(800, TrackEventCategory.MID_DIST);
         midDist800.setGoalTime(Duration.ofMinutes(2).plusSeconds(20));
         assertEquals(Duration.ofSeconds(70), midDist800.goalTimeLapSplit());
     }

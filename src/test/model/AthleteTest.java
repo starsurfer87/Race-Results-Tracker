@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AthleteTest {
 
     Athlete athlete;
-    Event midDist1500v1;
-    Event midDist1500v2;
-    Event hurdles110;
+    TrackEvent midDist1500v1;
+    TrackEvent midDist1500v2;
+    TrackEvent hurdles110;
 
     @BeforeEach
     public void setup() {
         athlete = new Athlete("Skye");
-        midDist1500v1 = new Event(1500, EventCategory.MID_DIST);
-        midDist1500v2 = new Event(1500, EventCategory.MID_DIST);
-        hurdles110 = new Event(110, EventCategory.HURDLES);
+        midDist1500v1 = new TrackEvent(1500, TrackEventCategory.MID_DIST);
+        midDist1500v2 = new TrackEvent(1500, TrackEventCategory.MID_DIST);
+        hurdles110 = new TrackEvent(110, TrackEventCategory.HURDLES);
     }
 
     @Test

@@ -29,14 +29,14 @@ to any track event and include both past and current personal bests.
 
 
 ## User Stories
-- As a user, I want to be able to add a new event for myself
+- As a user, I want to be able to add a new track event for myself
 - As a user, I want to be able to add a race to an event, recording statistics including date, result time, and placement
 - As a user, I want to be able to set a goal time for an event
 - As a user, I want to be able to determine what my lap splits needs to be to achieve my goal time
 - As a user, I want to be able to view all my races for a specific event
 - As a user, I want to be able to view my current and all past personal bests for a specific event
 - As a user, I want to have the option to save my added events and races to a file
-- As a user, when I start the application, I want to have the option to load event and race data from a file
+- As a user, when I start the application, I want to have the option to load track event and race data from a file
 
 ## Instructions for Grader
 

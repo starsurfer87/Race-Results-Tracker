@@ -7,27 +7,26 @@ import persistence.Writable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /*
 Represents a track event of a certain distance and category, with a goal time and a list of races of the event that
 the athlete has participated in.
 */
-public class Event implements Writable {
+public class TrackEvent implements Writable {
 
     public static final int LAP_DIST = 400;
 
     private int distance; // in meters;
     private float laps;
-    private EventCategory category;
+    private TrackEventCategory category;
     private Duration goalTime;
     private List<Race> races;
 
 
     // REQUIRES: distance > 0
     // EFFECTS: creates an event of a given distance (in meters) and category with no races
-    public Event(int distance, EventCategory category) {
+    public TrackEvent(int distance, TrackEventCategory category) {
         this.distance = distance;
         this.laps = (float) distance / LAP_DIST;
         this.category = category;
@@ -38,8 +37,8 @@ public class Event implements Writable {
     //          no contribution from category if category is a sprint, middle-distance, or long-distance race
     public String getName() {
         String distanceString = distance + "m";
-        if (category == EventCategory.SPRINT || category == EventCategory.MID_DIST
-                || category == EventCategory.LONG_DIST) {
+        if (category == TrackEventCategory.SPRINT || category == TrackEventCategory.MID_DIST
+                || category == TrackEventCategory.LONG_DIST) {
             return distanceString;
         } else {
             return distanceString + " " + category.getName();
@@ -119,7 +118,7 @@ public class Event implements Writable {
         return laps;
     }
 
-    public EventCategory getCategory() {
+    public TrackEventCategory getCategory() {
         return category;
     }
 

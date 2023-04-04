@@ -14,7 +14,7 @@ Represents an athlete with track events that they compete in
 public class Athlete implements Writable {
 
     private String name;
-    private Map<String, Event> events;
+    private Map<String, TrackEvent> events;
 
     // EFFECTS: creates an athlete with a given name and no events
     public Athlete(String name) {
@@ -29,10 +29,10 @@ public class Athlete implements Writable {
     // MODIFIES: this
     // EFFECTS: if event with same name does not yet exist, then adds event using its name as its key and returns true,
     //          otherwise does nothing and returns false
-    public boolean addEvent(Event event) {
-        String eventName = event.getName();
+    public boolean addEvent(TrackEvent trackEvent) {
+        String eventName = trackEvent.getName();
         if (getEvent(eventName) == null) {
-            events.put(eventName, event);
+            events.put(eventName, trackEvent);
             return true;
         } else {
             return false;
@@ -50,7 +50,7 @@ public class Athlete implements Writable {
     }
 
     // EFFECTS: returns the event with the given name or null if no event with that name exists
-    public Event getEvent(String name) {
+    public TrackEvent getEvent(String name) {
         return events.get(name);
     }
 
@@ -67,7 +67,7 @@ public class Athlete implements Writable {
     private JSONArray eventsToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (Event evt : events.values()) {
+        for (TrackEvent evt : events.values()) {
             jsonArray.put(evt.toJson());
         }
 

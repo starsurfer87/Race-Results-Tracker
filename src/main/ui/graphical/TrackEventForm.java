@@ -1,6 +1,6 @@
 package ui.graphical;
 
-import model.EventCategory;
+import model.TrackEventCategory;
 import ui.exceptions.InvalidInputException;
 
 import javax.swing.*;
@@ -9,17 +9,17 @@ import java.util.*;
 /*
 Form for creating and adding a new event
  */
-public class EventForm extends Form {
+public class TrackEventForm extends Form {
 
     private static final String DISTANCE = "Distance";
     private static final String CATEGORY = "Category (SP, MD, LD, H, SC, or RW)";
 
-    EventsPanel eventsPanel;
+    TrackEventsPanel trackEventsPanel;
 
     // EFFECTS: creates a form for adding a new event
-    public EventForm(EventsPanel eventsPanel) {
+    public TrackEventForm(TrackEventsPanel trackEventsPanel) {
         super("Add Event", getInputValues());
-        this.eventsPanel = eventsPanel;
+        this.trackEventsPanel = trackEventsPanel;
     }
 
     // EFFECTS: returns list of names of values needed in order to create an event
@@ -37,8 +37,8 @@ public class EventForm extends Form {
     protected void handleUserInputs(Map<String, String> userInputs) {
         try {
             int distance = Integer.parseInt(userInputs.get(DISTANCE));
-            EventCategory category = parseCategory(userInputs.get(CATEGORY));
-            eventsPanel.addEventToAthlete(distance, category);
+            TrackEventCategory category = parseCategory(userInputs.get(CATEGORY));
+            trackEventsPanel.addTrackEventToAthlete(distance, category);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Input Not Valid",
                     JOptionPane.ERROR_MESSAGE);
@@ -46,21 +46,21 @@ public class EventForm extends Form {
     }
 
     // EFFECTS: parses EventCategory from categoryString
-    private EventCategory parseCategory(String categoryString) throws InvalidInputException {
-        EventCategory category;
+    private TrackEventCategory parseCategory(String categoryString) throws InvalidInputException {
+        TrackEventCategory category;
 
         switch (categoryString) {
-            case "SP": category = EventCategory.SPRINT;
+            case "SP": category = TrackEventCategory.SPRINT;
                 break;
-            case "MD": category = EventCategory.MID_DIST;
+            case "MD": category = TrackEventCategory.MID_DIST;
                 break;
-            case "LD": category = EventCategory.LONG_DIST;
+            case "LD": category = TrackEventCategory.LONG_DIST;
                 break;
-            case "H": category = EventCategory.HURDLES;
+            case "H": category = TrackEventCategory.HURDLES;
                 break;
-            case "SC": category = EventCategory.STEEPLECHASE;
+            case "SC": category = TrackEventCategory.STEEPLECHASE;
                 break;
-            case "RW": category = EventCategory.RACE_WALK;
+            case "RW": category = TrackEventCategory.RACE_WALK;
                 break;
             default:
                 throw new InvalidInputException();

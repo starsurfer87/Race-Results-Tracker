@@ -1,8 +1,8 @@
 package persistence;
 
 import model.Athlete;
-import model.Event;
-import model.EventCategory;
+import model.TrackEvent;
+import model.TrackEventCategory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -52,37 +52,37 @@ public class JsonReader {
     private Athlete parseAthlete(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Athlete a = new Athlete(name);
-        parseEvents(a, jsonObject);
+        parseTrackEvents(a, jsonObject);
         return a;
     }
 
     // MODIFIES: a
     // EFFECTS: parses events from JSON object and adds them to athlete
-    private void parseEvents(Athlete a, JSONObject jsonObject) {
+    private void parseTrackEvents(Athlete a, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("events");
         for (Object json : jsonArray) {
             JSONObject nextEvent = (JSONObject) json;
-            parseEvent(a, nextEvent);
+            parseTrackEvent(a, nextEvent);
         }
     }
 
     // MODIFIES: a
     // EFFECTS: parses an event from JSON object and adds it to athlete
-    private void parseEvent(Athlete a, JSONObject jsonObject) {
+    private void parseTrackEvent(Athlete a, JSONObject jsonObject) {
         int distance = jsonObject.getInt("distance");
-        EventCategory category = EventCategory.valueOf(jsonObject.getString("category"));
-        Event event = new Event(distance, category);
+        TrackEventCategory category = TrackEventCategory.valueOf(jsonObject.getString("category"));
+        TrackEvent trackEvent = new TrackEvent(distance, category);
         if (jsonObject.has("goal time")) {
             Duration goalTime = Duration.parse(jsonObject.getString("goal time"));
-            event.setGoalTime(goalTime);
+            trackEvent.setGoalTime(goalTime);
         }
-        parseRaces(event, jsonObject);
-        a.addEvent(event);
+        parseRaces(trackEvent, jsonObject);
+        a.addEvent(trackEvent);
     }
 
     // MODIFIES: evt
     // EFFECTS: parses races for a particular event from JSON object and adds them to event
-    private void parseRaces(Event evt, JSONObject jsonObject) {
+    private void parseRaces(TrackEvent evt, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("races");
         for (Object json : jsonArray) {
             JSONObject nextRace = (JSONObject) json;
@@ -92,7 +92,7 @@ public class JsonReader {
 
     // MODIFIES: evt
     // EFFECTS: parses a race for a particular event from JSON object and adds it to event
-    private void parseRace(Event evt, JSONObject jsonObject) {
+    private void parseRace(TrackEvent evt, JSONObject jsonObject) {
         LocalDate date = LocalDate.parse(jsonObject.getString("date"));
         Duration time = Duration.parse(jsonObject.getString("time"));
         int placement = jsonObject.getInt("placement");

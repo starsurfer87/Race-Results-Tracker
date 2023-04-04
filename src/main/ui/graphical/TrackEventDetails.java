@@ -1,6 +1,6 @@
 package ui.graphical;
 
-import model.Event;
+import model.TrackEvent;
 import model.Race;
 
 import javax.swing.*;
@@ -14,18 +14,18 @@ import java.util.List;
 /*
 Panel with details and interactions related to a specific event
  */
-public class EventDetails extends JPanel implements ItemListener {
+public class TrackEventDetails extends JPanel implements ItemListener {
     private static final String FILTER_FOR_PBS = "Filter for PBs";
 
-    private Event selectedEvent;
+    private TrackEvent selectedTrackEvent;
     private DefaultTableModel raceTableModel;
     private JCheckBox filterButton;
     private boolean racesFiltered;
 
     // EFFECTS: creates event details panel with an empty table of races and a form for adding new races
-    public EventDetails() {
+    public TrackEventDetails() {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-        selectedEvent = null;
+        selectedTrackEvent = null;
         makeRacesTable();
         add(new RaceForm(this));
         racesFiltered = false;
@@ -33,15 +33,15 @@ public class EventDetails extends JPanel implements ItemListener {
 
     // MODIFIES: this
     // EFFECTS: sets the selected event and populates the table with races of that event
-    public void setSelectedEvent(Event selectedEvent) {
-        this.selectedEvent = selectedEvent;
+    public void setSelectedEvent(TrackEvent selectedTrackEvent) {
+        this.selectedTrackEvent = selectedTrackEvent;
         populateRacesTable();
     }
 
     // MODIFIES: this
     // EFFECTS: unselects event and clears race table
     public void unselectEvent() {
-        selectedEvent = null;
+        selectedTrackEvent = null;
         raceTableModel.setRowCount(0);
     }
 
@@ -68,9 +68,9 @@ public class EventDetails extends JPanel implements ItemListener {
         List<Race> racesToDisplay;
 
         if (racesFiltered) {
-            racesToDisplay = selectedEvent.getAllPBs();
+            racesToDisplay = selectedTrackEvent.getAllPBs();
         } else {
-            racesToDisplay = selectedEvent.getAllRaces();
+            racesToDisplay = selectedTrackEvent.getAllRaces();
         }
 
         for (Race race : racesToDisplay) {
@@ -85,7 +85,7 @@ public class EventDetails extends JPanel implements ItemListener {
     // MODIFIES: this
     // EFFECTS: adds race to event and updates contents of race table
     public void addRaceToEvent(LocalDate date, Duration time, int place) {
-        selectedEvent.addRace(date, time, place);
+        selectedTrackEvent.addRace(date, time, place);
         populateRacesTable();
     }
 

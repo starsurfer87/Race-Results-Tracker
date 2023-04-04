@@ -1,11 +1,9 @@
 package ui.graphical;
 
 import model.Athlete;
-import persistence.JsonReader;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 /*
 Main window of the Results Tracker application
@@ -41,11 +39,11 @@ public class ResultsTrackerGUI extends JFrame {
     // EFFECTS: sets up main screen of the Results Tracker application
     public void showMainScreen() {
         MenuBar menu = new MenuBar(this);
-        EventsPanel eventsPanel = new EventsPanel(this);
+        TrackEventsPanel trackEventsPanel = new TrackEventsPanel(this);
 
         setLayout(new BorderLayout());
         add(menu, BorderLayout.PAGE_END);
-        add(eventsPanel, BorderLayout.CENTER);
+        add(trackEventsPanel, BorderLayout.CENTER);
     }
 
     public void setAthlete(Athlete athlete) {

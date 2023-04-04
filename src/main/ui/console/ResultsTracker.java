@@ -2,8 +2,8 @@ package ui.console;
 
 
 import model.Athlete;
-import model.Event;
-import model.EventCategory;
+import model.TrackEvent;
+import model.TrackEventCategory;
 import model.Race;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -187,19 +187,19 @@ public class ResultsTracker {
     // MODIFIES: this
     // EFFECTS: prompts user to create a new event; if event same name does not yet
     //          exist, then add and return the event, otherwise return the pre-existing equivalent event
-    private Event addNewEvent() {
+    private TrackEvent addNewEvent() {
         System.out.println("\nAdding a new event");
         int distance = inputPosInteger("Enter the event distance (in meters):");
         displayEventCategories();
-        EventCategory category = selectEventCategory();
-        Event newEvent = new Event(distance, category);
-        boolean newEventAdded = athlete.addEvent(newEvent);
+        TrackEventCategory category = selectEventCategory();
+        TrackEvent newTrackEvent = new TrackEvent(distance, category);
+        boolean newEventAdded = athlete.addEvent(newTrackEvent);
 
         if (!newEventAdded) {
             System.out.println("\nAn event with this distance and category already exists:");
         }
 
-        return athlete.getEvent(newEvent.getName());
+        return athlete.getEvent(newTrackEvent.getName());
     }
 
     // EFFECTS: display event category options to user
@@ -214,23 +214,23 @@ public class ResultsTracker {
     }
 
     // EFFECTS: prompts user to select an event category and returns that category
-    private EventCategory selectEventCategory() {
+    private TrackEventCategory selectEventCategory() {
         String selection = input.next();
         selection = selection.toLowerCase().trim();
-        EventCategory category;
+        TrackEventCategory category;
 
         switch (selection) {
-            case "sp": category = EventCategory.SPRINT;
+            case "sp": category = TrackEventCategory.SPRINT;
                 break;
-            case "md": category = EventCategory.MID_DIST;
+            case "md": category = TrackEventCategory.MID_DIST;
                 break;
-            case "ld": category = EventCategory.LONG_DIST;
+            case "ld": category = TrackEventCategory.LONG_DIST;
                 break;
-            case "hd": category = EventCategory.HURDLES;
+            case "hd": category = TrackEventCategory.HURDLES;
                 break;
-            case "sc": category = EventCategory.STEEPLECHASE;
+            case "sc": category = TrackEventCategory.STEEPLECHASE;
                 break;
-            case "rw": category = EventCategory.RACE_WALK;
+            case "rw": category = TrackEventCategory.RACE_WALK;
                 break;
             default:
                 System.out.println("Not a valid selection \nPlease try again");
@@ -242,15 +242,15 @@ public class ResultsTracker {
 
 
     // EFFECTS: prompts user to select an event and returns that event
-    private Event selectEvent() {
+    private TrackEvent selectEvent() {
         System.out.println("\nEnter the name of the event you would like to select:");
         String eventName = input.next();
         eventName = eventName.trim();
 
-        Event selectedEvent = athlete.getEvent(eventName);
+        TrackEvent selectedTrackEvent = athlete.getEvent(eventName);
 
-        if (selectedEvent != null) {
-            return selectedEvent;
+        if (selectedTrackEvent != null) {
+            return selectedTrackEvent;
         } else {
             System.out.println("Not a valid selection \nPlease try again");
             return selectEvent();
@@ -259,13 +259,13 @@ public class ResultsTracker {
 
     // MODIFIES: event
     // EFFECTS: displays basic stats for event and manages user interactions with event
-    private void viewEvent(Event event) {
+    private void viewEvent(TrackEvent trackEvent) {
         boolean viewingEvent = true;
         String command;
 
 
         while (viewingEvent) {
-            displayEventStats(event);
+            displayEventStats(trackEvent);
             displayEventMenu();
             command = input.next();
             command = command.toLowerCase().trim();
@@ -273,19 +273,19 @@ public class ResultsTracker {
             if (command.equals("exit")) {
                 viewingEvent = false;
             } else {
-                processEventMenuCommand(event, command);
+                processEventMenuCommand(trackEvent, command);
             }
         }
     }
 
     // EFFECTS: displays the name of given event, along with the event's personal best and goal times if they exist
-    private void displayEventStats(Event event) {
-        System.out.println("\n" + event.getName());
-        if (event.getPB() != null) {
-            System.out.println("Current Personal Best: " + event.getPB());
+    private void displayEventStats(TrackEvent trackEvent) {
+        System.out.println("\n" + trackEvent.getName());
+        if (trackEvent.getPB() != null) {
+            System.out.println("Current Personal Best: " + trackEvent.getPB());
         }
-        if (event.getGoalTime() != null) {
-            System.out.println("Goal Time: " + event.getGoalTime());
+        if (trackEvent.getGoalTime() != null) {
+            System.out.println("Goal Time: " + trackEvent.getGoalTime());
         }
     }
 
@@ -302,23 +302,23 @@ public class ResultsTracker {
 
     // MODIFIES: event
     // EFFECTS: processes user selection for event menu
-    private void processEventMenuCommand(Event event, String command) {
+    private void processEventMenuCommand(TrackEvent trackEvent, String command) {
 
         switch (command) {
             case "sgt":
-                setGoalTime(event);
+                setGoalTime(trackEvent);
                 break;
             case "gls":
-                displayGoalTimeLapSplit(event);
+                displayGoalTimeLapSplit(trackEvent);
                 break;
             case "ar":
-                addNewRace(event);
+                addNewRace(trackEvent);
                 break;
             case "vr":
-                displayRaces(event);
+                displayRaces(trackEvent);
                 break;
             case "vpb":
-                displayPBs(event);
+                displayPBs(trackEvent);
                 break;
             default:
                 System.out.println("Not a valid selection \nPlease try again");
@@ -327,15 +327,15 @@ public class ResultsTracker {
 
     // MODIFIES: event
     // EFFECTS: sets event's goal time according to user input
-    private void setGoalTime(Event event) {
-        System.out.println("\nEnter your " + event.getName()
+    private void setGoalTime(TrackEvent trackEvent) {
+        System.out.println("\nEnter your " + trackEvent.getName()
                 + " goal time using ISO-8601 seconds based representation:");
         String goalTimeString = input.next();
 
         try {
             Duration goalTime = Duration.parse(goalTimeString);
             if (isPositiveTime("Goal time", goalTime)) {
-                event.setGoalTime(goalTime);
+                trackEvent.setGoalTime(goalTime);
                 System.out.println("Your goal time has been set");
             }
         } catch (DateTimeParseException e) {
@@ -344,47 +344,47 @@ public class ResultsTracker {
     }
 
     // EFFECTS: displays the lap split time needed to achieve goal time for event
-    private void displayGoalTimeLapSplit(Event event) {
-        if (event.getDistance() < Event.LAP_DIST) {
+    private void displayGoalTimeLapSplit(TrackEvent trackEvent) {
+        if (trackEvent.getDistance() < TrackEvent.LAP_DIST) {
             System.out.println("Event is less than a lap long - cannot calculate lap splits");
-        } else if (event.getGoalTime() == null) {
+        } else if (trackEvent.getGoalTime() == null) {
             System.out.println("No goal time set - cannot calculate lap splits");
         } else {
-            System.out.println("\nLap split time needed to achieve goal time: " + event.goalTimeLapSplit());
+            System.out.println("\nLap split time needed to achieve goal time: " + trackEvent.goalTimeLapSplit());
         }
     }
 
     // MODIFIES: event
     // EFFECTS: adds a new race to event according to user input
-    private void addNewRace(Event event) {
-        System.out.println("\nAdding a new " + event.getName() + " race");
+    private void addNewRace(TrackEvent trackEvent) {
+        System.out.println("\nAdding a new " + trackEvent.getName() + " race");
 
-        LocalDate raceDate = inputRaceDate(event);
+        LocalDate raceDate = inputRaceDate(trackEvent);
         Duration resultTime = inputRaceTime();
         int placement = inputPosInteger("Enter your placement:");
 
-        event.addRace(raceDate, resultTime, placement);
+        trackEvent.addRace(raceDate, resultTime, placement);
     }
 
     // EFFECTS: prompts user to input a date for a race and returns it
-    private LocalDate inputRaceDate(Event raceEvent) {
+    private LocalDate inputRaceDate(TrackEvent raceTrackEvent) {
         System.out.println("Enter the date of the race in the form yyyy-mm-dd:");
         String dateString = input.next();
         LocalDate date;
 
         try {
             date = LocalDate.parse(dateString);
-            if (raceEvent.numRaces() > 0) {
-                LocalDate prevRaceDate = raceEvent.getRace(0).getDate();
+            if (raceTrackEvent.numRaces() > 0) {
+                LocalDate prevRaceDate = raceTrackEvent.getRace(0).getDate();
                 if (date.isBefore(prevRaceDate)) {
-                    System.out.println("Date cannot be before the date of your previous " + raceEvent.getName()
+                    System.out.println("Date cannot be before the date of your previous " + raceTrackEvent.getName()
                             + "race (" + prevRaceDate + ")");
-                    date = inputRaceDate(raceEvent);
+                    date = inputRaceDate(raceTrackEvent);
                 }
             }
         } catch (DateTimeParseException e) {
             System.out.println("Not a valid date");
-            date = inputRaceDate(raceEvent);
+            date = inputRaceDate(raceTrackEvent);
         }
 
         return date;
@@ -410,8 +410,8 @@ public class ResultsTracker {
     }
 
     // EFFECTS: display race stats for a specified list of races
-    private void displayListOfRaces(Event event, List<Race> raceList, String listType, boolean identifyPBs) {
-        System.out.println("\n" + event.getName() + " " + listType);
+    private void displayListOfRaces(TrackEvent trackEvent, List<Race> raceList, String listType, boolean identifyPBs) {
+        System.out.println("\n" + trackEvent.getName() + " " + listType);
         System.out.println("Date\t\tTime\tPlace");
         for (Race race : raceList) {
             System.out.print(race.getDate() + "\t" + race.getTime() + "\t" + race.getPlacement());
@@ -423,13 +423,13 @@ public class ResultsTracker {
     }
 
     // EFFECTS: display all races for given event
-    private void displayRaces(Event event) {
-        displayListOfRaces(event, event.getAllRaces(), "Races", true);
+    private void displayRaces(TrackEvent trackEvent) {
+        displayListOfRaces(trackEvent, trackEvent.getAllRaces(), "Races", true);
     }
 
     // EFFECTS: display all races where a current or past personal best time was achieved
-    private void displayPBs(Event event) {
-        displayListOfRaces(event, event.getAllPBs(), "Personal Bests", false);
+    private void displayPBs(TrackEvent trackEvent) {
+        displayListOfRaces(trackEvent, trackEvent.getAllPBs(), "Personal Bests", false);
     }
 
     // EFFECTS: prompts user to input a positive non-zero integer and returns it
