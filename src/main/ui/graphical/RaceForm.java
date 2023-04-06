@@ -14,12 +14,12 @@ public class RaceForm extends Form {
     private static final String TIME = "Time";
     private static final String PLACE = "Placement";
 
-    TrackEventDetails trackEventDetails;
+    EventDetails eventDetails;
 
     // EFFECTS: creates a form for adding a new race
-    public RaceForm(TrackEventDetails trackEventDetails) {
+    public RaceForm(EventDetails eventDetails) {
         super("Add Race", getInputValues());
-        this.trackEventDetails = trackEventDetails;
+        this.eventDetails = eventDetails;
     }
 
     // EFFECTS: returns list of names of values needed in order to create a race
@@ -40,7 +40,7 @@ public class RaceForm extends Form {
             LocalDate date = LocalDate.parse(userInputs.get(DATE));
             Duration time = Duration.parse(userInputs.get(TIME));
             int place = Integer.parseInt(userInputs.get(PLACE));
-            trackEventDetails.addRaceToEvent(date, time, place);
+            eventDetails.addRaceToEvent(date, time, place);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Input Not Valid",
                     JOptionPane.ERROR_MESSAGE);

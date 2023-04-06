@@ -1,8 +1,8 @@
 package ui.graphical;
 
 import model.Athlete;
-import model.TrackEvent;
-import model.TrackEventCategory;
+import model.Event;
+import model.EventCategory;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -11,17 +11,17 @@ import javax.swing.event.ListSelectionListener;
 /*
 Panel with information and interactions related to events
  */
-public class TrackEventsPanel extends JPanel implements ListSelectionListener {
+public class EventsPanel extends JPanel implements ListSelectionListener {
     private static final String ADD_EVENT = "New Event";
 
     private Athlete athlete;
     private JList<String> eventList;
     private DefaultListModel<String> eventListModel;
-    private TrackEventDetails trackEventDetails;
+    private EventDetails eventDetails;
 
     // EFFECTS: creates a panel with a list of the athlete's events, a form for adding new events, and an event details
     //          panel which is initially hidden
-    public TrackEventsPanel(ResultsTrackerGUI resultsTracker) {
+    public EventsPanel(ResultsTrackerGUI resultsTracker) {
         this.athlete = resultsTracker.getAthlete();
 
         eventListModel = new DefaultListModel<>();
@@ -32,12 +32,12 @@ public class TrackEventsPanel extends JPanel implements ListSelectionListener {
         JScrollPane eventsScrollPane = new JScrollPane(eventList);
         add(eventsScrollPane);
 
-        TrackEventForm trackEventForm = new TrackEventForm(this);
-        add(trackEventForm);
+        EventForm eventForm = new EventForm(this);
+        add(eventForm);
 
-        trackEventDetails = new TrackEventDetails();
-        trackEventDetails.setVisible(false);
-        add(trackEventDetails);
+        eventDetails = new EventDetails();
+        eventDetails.setVisible(false);
+        add(eventDetails);
     }
 
     // MODIFIES: this
@@ -58,12 +58,12 @@ public class TrackEventsPanel extends JPanel implements ListSelectionListener {
             int index = eventList.getSelectedIndex();
 
             if (index == -1) {
-                trackEventDetails.unselectEvent();
-                trackEventDetails.setVisible(false);
+                eventDetails.unselectEvent();
+                eventDetails.setVisible(false);
             } else {
                 String selectedEventName = eventListModel.get(index);
-                trackEventDetails.setSelectedEvent(athlete.getEvent(selectedEventName));
-                trackEventDetails.setVisible(true);
+                eventDetails.setSelectedEvent(athlete.getEvent(selectedEventName));
+                eventDetails.setVisible(true);
             }
         }
     }
@@ -71,8 +71,8 @@ public class TrackEventsPanel extends JPanel implements ListSelectionListener {
     // REQUIRES: distance > 0
     // MODIFIES: this
     // EFFECTS: adds an event to the athlete
-    public void addTrackEventToAthlete(int distance, TrackEventCategory category) {
-        athlete.addEvent(new TrackEvent(distance, category));
+    public void addEventToAthlete(int distance, EventCategory category) {
+        athlete.addEvent(new Event(distance, category));
         populateEventsListModel();
     }
 }

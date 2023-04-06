@@ -2,7 +2,7 @@ package model;
 
 
 // Enumeration of the different categories of track events
-public enum TrackEventCategory {
+public enum EventCategory {
     SPRINT("Sprint"),
     MID_DIST("Middle Distance"),
     LONG_DIST("Long Distance"),
@@ -13,7 +13,7 @@ public enum TrackEventCategory {
     private final String name;
 
     // EFFECTS: constructs an event category with the given name
-    TrackEventCategory(String name) {
+    EventCategory(String name) {
         this.name = name;
     }
 
