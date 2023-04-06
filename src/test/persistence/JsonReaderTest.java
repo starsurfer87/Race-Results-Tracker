@@ -1,8 +1,8 @@
 package persistence;
 
 import model.Athlete;
-import model.TrackEvent;
-import model.TrackEventCategory;
+import model.Event;
+import model.EventCategory;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -45,15 +45,15 @@ public class JsonReaderTest extends JsonTest {
             assertEquals("Skye", a.getName());
             assertEquals(2, a.numEvents());
 
-            TrackEvent midDist1500 = a.getEvent("1500m");
-            checkEvent(midDist1500, 1500, (float) 3.75, TrackEventCategory.MID_DIST,
+            Event midDist1500 = a.getEvent("1500m");
+            checkEvent(midDist1500, 1500, (float) 3.75, EventCategory.MID_DIST,
                     Duration.parse("PT4M50S"), 2);
             checkRace(midDist1500.getRace(0), LocalDate.of(2022, 6, 29),
                     Duration.parse("PT4M54.12S"), true, 9);
             checkRace(midDist1500.getRace(1), LocalDate.of(2022, 3, 26),
                     Duration.parse("PT4M58.18S"), true, 14);
 
-            checkEvent(a.getEvent("400m"), 400, (float) 1, TrackEventCategory.SPRINT,
+            checkEvent(a.getEvent("400m"), 400, (float) 1, EventCategory.SPRINT,
                     null, 0);
 
         } catch (IOException e) {

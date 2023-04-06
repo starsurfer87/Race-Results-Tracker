@@ -1,7 +1,7 @@
 package persistence;
 
-import model.TrackEvent;
-import model.TrackEventCategory;
+import model.Event;
+import model.EventCategory;
 import model.Race;
 
 import java.time.Duration;
@@ -17,7 +17,7 @@ public class JsonTest {
         assertEquals(placement, r.getPlacement());
     }
 
-    protected void checkEvent(TrackEvent e, int dist, float laps, TrackEventCategory category, Duration goalTime, int numRaces) {
+    protected void checkEvent(Event e, int dist, float laps, EventCategory category, Duration goalTime, int numRaces) {
         assertEquals(dist, e.getDistance());
         assertEquals(laps, e.getLaps());
         assertEquals(category, e.getCategory());
