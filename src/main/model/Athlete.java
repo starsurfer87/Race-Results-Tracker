@@ -1,5 +1,6 @@
 package model;
 
+import model.log.EventLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -14,7 +15,7 @@ Represents an athlete with track events that they compete in
 public class Athlete implements Writable {
 
     private String name;
-    private Map<String, TrackEvent> events;
+    private Map<String, Event> events;
 
     // EFFECTS: creates an athlete with a given name and no events
     public Athlete(String name) {
@@ -29,10 +30,11 @@ public class Athlete implements Writable {
     // MODIFIES: this
     // EFFECTS: if event with same name does not yet exist, then adds event using its name as its key and returns true,
     //          otherwise does nothing and returns false
-    public boolean addEvent(TrackEvent trackEvent) {
-        String eventName = trackEvent.getName();
+    public boolean addEvent(Event event) {
+        String eventName = event.getName();
         if (getEvent(eventName) == null) {
-            events.put(eventName, trackEvent);
+            events.put(eventName, event);
+            EventLog.getInstance().logEvent(new model.log.Event("Added new event: " + eventName));
             return true;
         } else {
             return false;
@@ -50,7 +52,7 @@ public class Athlete implements Writable {
     }
 
     // EFFECTS: returns the event with the given name or null if no event with that name exists
-    public TrackEvent getEvent(String name) {
+    public Event getEvent(String name) {
         return events.get(name);
     }
 
@@ -67,7 +69,7 @@ public class Athlete implements Writable {
     private JSONArray eventsToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (TrackEvent evt : events.values()) {
+        for (Event evt : events.values()) {
             jsonArray.put(evt.toJson());
         }
 

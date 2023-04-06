@@ -1,5 +1,6 @@
 package model;
 
+import model.log.EventLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -64,6 +65,7 @@ public class TrackEvent implements Writable {
                 pbRaces.add(race);
             }
         }
+        EventLog.getInstance().logEvent(new model.log.Event("Accessed all PB races for " + getName()));
         return pbRaces;
     }
 
@@ -86,6 +88,7 @@ public class TrackEvent implements Writable {
         }
 
         races.add(0, newRace);
+        EventLog.getInstance().logEvent(new model.log.Event("Added new " + getName() + " race"));
     }
 
     // REQUIRES: a goal time has been set, distance >= LAP_DIST
@@ -102,6 +105,7 @@ public class TrackEvent implements Writable {
 
     // EFFECTS: returns list of all races of this event
     public List<Race> getAllRaces() {
+        EventLog.getInstance().logEvent(new model.log.Event("Accessed all races for " + getName()));
         return races;
     }
 
