@@ -2,73 +2,34 @@
     "name": "Skye",
     "events": [
         {
-            "distance": 400,
-            "races": [],
-            "category": "SPRINT"
-        },
-        {
             "distance": 1500,
-            "goal time": "PT4M50S",
             "races": [
                 {
-                    "date": "2022-03-26",
-                    "time": "PT4M58.18S",
-                    "placement": 14
+                    "date": "2022-06-08",
+                    "time": "PT5M",
+                    "placement": 3
                 },
                 {
-                    "date": "2022-06-29",
-                    "time": "PT4M54.12S",
-                    "placement": 9
+                    "date": "2022-07-10",
+                    "time": "PT4M55S",
+                    "placement": 2
                 },
                 {
                     "date": "2023-03-26",
                     "time": "PT5M1S",
-                    "placement": 21
-                },
-                {
-                    "date": "2023-03-27",
-                    "time": "PT5M",
-                    "placement": 5
-                },
-                {
-                    "date": "2023-03-28",
-                    "time": "PT4M50S",
                     "placement": 5
                 }
             ],
             "category": "MID_DIST"
         },
         {
-            "distance": 5000,
+            "distance": 800,
             "races": [{
-                "date": "2021-11-19",
-                "time": "PT20M",
-                "placement": 2
-            }],
-            "category": "LONG_DIST"
-        },
-        {
-            "distance": 3000,
-            "races": [{
-                "date": "2022-05-05",
-                "time": "PT11M",
-                "placement": 3
+                "date": "2022-03-05",
+                "time": "PT2M20S",
+                "placement": 5
             }],
             "category": "MID_DIST"
-        },
-        {
-            "distance": 200,
-            "races": [{
-                "date": "2023-03-01",
-                "time": "PT28S",
-                "placement": 3
-            }],
-            "category": "SPRINT"
-        },
-        {
-            "distance": 3000,
-            "races": [],
-            "category": "STEEPLECHASE"
         }
     ]
 }

@@ -55,6 +55,36 @@ with the table of races
 - You can reload the state of my application by pressing the "Load Athlete From File" button on the title screen 
 displayed upon starting the application
 
+## Phase 4: Task 2
+Fri Apr 07 10:06:35 PDT 2023  
+Added new event: 1500m  
+Fri Apr 07 10:06:39 PDT 2023  
+Accessed all races for 1500m  
+Fri Apr 07 10:07:19 PDT 2023  
+Added new 1500m race  
+Fri Apr 07 10:07:19 PDT 2023  
+Accessed all races for 1500m  
+Fri Apr 07 10:08:00 PDT 2023  
+Added new 1500m race  
+Fri Apr 07 10:08:00 PDT 2023  
+Accessed all races for 1500m  
+Fri Apr 07 10:08:29 PDT 2023  
+Added new 1500m race  
+Fri Apr 07 10:08:29 PDT 2023  
+Accessed all races for 1500m  
+Fri Apr 07 10:08:32 PDT 2023  
+Accessed all PB races for 1500m  
+Fri Apr 07 10:08:33 PDT 2023  
+Accessed all races for 1500m  
+Fri Apr 07 10:08:47 PDT 2023  
+Added new event: 800m  
+Fri Apr 07 10:09:18 PDT 2023  
+Accessed all races for 800m  
+Fri Apr 07 10:10:11 PDT 2023  
+Added new 800m race  
+Fri Apr 07 10:10:11 PDT 2023  
+Accessed all races for 800m
+
 ## Citations
 - code adapted from [TellerApp project](https://github.students.cs.ubc.ca/CPSC210/TellerApp.git) used in ResultsTracker 
 class in the ui package
