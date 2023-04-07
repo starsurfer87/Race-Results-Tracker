@@ -46,6 +46,7 @@ public class EventForm extends Form {
     }
 
     // EFFECTS: parses EventCategory from categoryString
+    //          if EventCategory cannot be parsed from categoryString, throws InvalidInputException
     private EventCategory parseCategory(String categoryString) throws InvalidInputException {
         EventCategory category;
 
