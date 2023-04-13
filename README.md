@@ -85,6 +85,38 @@ Added new 800m race
 Fri Apr 07 10:10:11 PDT 2023  
 Accessed all races for 800m
 
+## Phase 4: Task 3
+The section of my design that would most benefit from refactoring is the ui package, particularly the graphical user 
+interface. Currently, there is a lot of coupling both within the ui package and also from the ui package to external 
+classes. Additionally, some of the classes are not the most cohesive and take on multiple roles that are related but 
+distinct. 
+One way to improve coupling and cohesion in my ui would be to create a class that handles saving and loading. 
+This class could be used in both the console ui and gui, making it easier to maintain saving and loading functionality 
+across both version of the ui. It would alse increase cohesion in classes that are currently handling this 
+functionality. Furthermore, it would significantly reduce coupling, both within the ui package and to external classes. 
+Currently, the only reason the TitleScreen and MenuBar classes need a field of type ResultsTrackerGUI is for their 
+saving and loading functionality. Additionally, this refactoring would mean only one class in the ui package would have 
+an association to the classes in the persistence package. 
+Another way cohesion could be increased is by creating nested classes for the different listeners, and moving methods 
+related to listening for and handling user interactions to these classes. Currently, many of my gui classes serve two
+different key purposes: setting up and displaying a certain aspect of the gui to the user, and handling user 
+interactions with that aspect. While this might make sense for the Form class and its subtypes since their purpose is 
+to collect user input, it isn't as logical for other gui classes. Nested listener classes would increase cohesion in 
+this respect. 
+There are also several smaller refactoring changes that could be done. The EventsPanel class could refer to the 
+ResultsTrackerGUI class's Athlete field rather than having its own, thus reducing coupling to the Athlete class and 
+solving the issue of needing to keep these two fields in sync (as they should always refer to the same athlete). This 
+would also make it easier to add support for multiple users in the future. Also, the two methods for parsing\selecting 
+an EventCategory in the two different versions of the ui could be abstracted into a single method and relocated to the 
+EventCategory class.
+
+An additional refactoring that would improve my design is adding more exceptions to eliminate requires clauses and make my 
+design more robust. Many of my methods have requires clauses that put restrictions on parameters that get their values 
+from user inputs, which are particularly challenging to control. While my console ui does a good job checking that user 
+inputs were valid, my graphical ui is not as thorough in this respect. Adding exceptions for these invalid values will
+allow methods to handle these values, ensure that invalid inputs are not simply being passed in unnoticed, and make it
+easier to respond to invalid inputs.
+
 ## Citations
 - code adapted from [TellerApp project](https://github.students.cs.ubc.ca/CPSC210/TellerApp.git) used in ResultsTracker 
 class in the ui package
