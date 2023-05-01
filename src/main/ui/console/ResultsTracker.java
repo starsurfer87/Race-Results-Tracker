@@ -18,8 +18,6 @@ import java.util.Scanner;
 
 // Application for tracking race results
 public class ResultsTracker {
-    // code based on modified version of the TellerApp class of the Teller project
-    // https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
 
     private Athlete athlete;
     private Scanner input;

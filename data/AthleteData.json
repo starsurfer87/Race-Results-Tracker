@@ -5,30 +5,21 @@
             "distance": 1500,
             "races": [
                 {
-                    "date": "2022-06-08",
+                    "date": "2022-03-05",
                     "time": "PT5M",
                     "placement": 3
                 },
                 {
-                    "date": "2022-07-10",
-                    "time": "PT4M55S",
-                    "placement": 2
-                },
-                {
-                    "date": "2023-03-26",
+                    "date": "2023-03-24",
                     "time": "PT5M1S",
                     "placement": 5
                 }
             ],
-            "category": "MID_DIST"
+            "category": "STEEPLECHASE"
         },
         {
-            "distance": 800,
-            "races": [{
-                "date": "2022-03-05",
-                "time": "PT2M20S",
-                "placement": 5
-            }],
+            "distance": 3000,
+            "races": [],
             "category": "MID_DIST"
         }
     ]

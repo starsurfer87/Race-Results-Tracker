@@ -18,8 +18,6 @@ import java.util.stream.Stream;
 Represents a reader that reads an athlete from JSON data stored in file
  */
 public class JsonReader {
-    // code based on JsonReader interface in JsonSerializationDemo project
-    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
     private String source;
 

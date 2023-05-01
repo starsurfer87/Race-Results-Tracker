@@ -38,54 +38,7 @@ to any track event and include both past and current personal bests.
 - As a user, I want to have the option to save my added events and races to a file
 - As a user, when I start the application, I want to have the option to load track event and race data from a file
 
-## Instructions for Grader
-
-- You can view all events added to the athlete on the main page (the main page is displayed once you have 
-created a new athlete or load an athlete from file on the title screen)
-- You can view all races added to an event by selecting one of the events in the list on the main page (all races for 
-that event will pop up in a table)
-- You can generate the first required action related to adding Xs to a Y by filling out the text input fields 
-"Distance" and "Category" and pressing the "Add Event" button on the main page
-- You can generate the second required action related to adding Xs to a Y by filling out the text input fields "Date", 
-"Time", and "Placement" and pressing the "Add Race" button on the form that pops up when an event is selected
-- You can generate a third action related to adding Xs to a Y by clicking the "Filter for PBs" checkbox on that appears 
-with the table of races
-- You can locate my visual component (the track logo) on the title screen displayed upon starting the application 
-- You can save the state of my application by pressing the "Save" button on the bottom of the main page 
-- You can reload the state of my application by pressing the "Load Athlete From File" button on the title screen 
-displayed upon starting the application
-
-## Phase 4: Task 2
-Fri Apr 07 10:06:35 PDT 2023  
-Added new event: 1500m  
-Fri Apr 07 10:06:39 PDT 2023  
-Accessed all races for 1500m  
-Fri Apr 07 10:07:19 PDT 2023  
-Added new 1500m race  
-Fri Apr 07 10:07:19 PDT 2023  
-Accessed all races for 1500m  
-Fri Apr 07 10:08:00 PDT 2023  
-Added new 1500m race  
-Fri Apr 07 10:08:00 PDT 2023  
-Accessed all races for 1500m  
-Fri Apr 07 10:08:29 PDT 2023  
-Added new 1500m race  
-Fri Apr 07 10:08:29 PDT 2023  
-Accessed all races for 1500m  
-Fri Apr 07 10:08:32 PDT 2023  
-Accessed all PB races for 1500m  
-Fri Apr 07 10:08:33 PDT 2023  
-Accessed all races for 1500m  
-Fri Apr 07 10:08:47 PDT 2023  
-Added new event: 800m  
-Fri Apr 07 10:09:18 PDT 2023  
-Accessed all races for 800m  
-Fri Apr 07 10:10:11 PDT 2023  
-Added new 800m race  
-Fri Apr 07 10:10:11 PDT 2023  
-Accessed all races for 800m
-
-## Phase 4: Task 3
+## Refactoring Plans
 The section of my design that would most benefit from refactoring is the ui package, particularly the graphical user 
 interface. Currently, there is a lot of coupling both within the ui package and also from the ui package to external 
 classes. Additionally, some of the classes are not the most cohesive and take on multiple roles that are related but 
@@ -116,16 +69,6 @@ from user inputs, which are particularly challenging to control. While my consol
 inputs were valid, my graphical ui is not as thorough in this respect. Adding exceptions for these invalid values will
 allow methods to handle these values, ensure that invalid inputs are not simply being passed in unnoticed, and make it
 easier to respond to invalid inputs.
-
-## Citations
-- code adapted from [TellerApp project](https://github.students.cs.ubc.ca/CPSC210/TellerApp.git) used in ResultsTracker 
-class in the ui package
-- code taken or adapted from [JsonSerializationDemo project](https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git)
-used throughout project, but particularly in JsonReader, JsonWriter, and Writable classes in the persistence package
-- code based on Java Swing [Component Examples](https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html), 
-[Layout Examples](https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/index.html#SpringDemo2), and
-[Event Listener Examples](https://docs.oracle.com/javase/tutorial/uiswing/examples/events/index.html#MultiListener) 
-(particularly the CheckBoxDemoProject, ListDemoProject, SimpleTableDemoProject, and MultiListenerProject) used throughout gui package 
 
 ## Image Sources
 - [creazilla](https://creazilla.com/nodes/38602-track-and-field-clipart)
